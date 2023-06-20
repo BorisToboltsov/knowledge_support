@@ -1,10 +1,10 @@
+import logging
 import os
 from typing import NoReturn
-from dotenv import load_dotenv
-import logging
-from aiogram import Bot, Dispatcher, executor, types
-import sentry_sdk
 
+import sentry_sdk
+from aiogram import Bot, Dispatcher, executor, types
+from dotenv import load_dotenv
 
 load_dotenv()
 
