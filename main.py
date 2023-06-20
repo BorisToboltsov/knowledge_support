@@ -1,4 +1,5 @@
 import os
+from typing import NoReturn
 from dotenv import load_dotenv
 import logging
 from aiogram import Bot, Dispatcher, executor, types
@@ -20,7 +21,7 @@ dp = Dispatcher(bot)
 
 
 @dp.message_handler(commands=["start", "help"])
-async def send_welcome(message: types.Message):
+async def send_welcome(message: types.Message) -> NoReturn:
     """
     This handler will be called when user sends `/start` or `/help` command
     """
@@ -28,7 +29,7 @@ async def send_welcome(message: types.Message):
 
 
 @dp.message_handler()
-async def echo(message: types.Message):
+async def echo(message: types.Message) -> NoReturn:
     # old style:
     # await bot.send_message(message.chat.id, message.text)
 
