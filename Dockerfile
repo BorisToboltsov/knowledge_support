@@ -1,4 +1,4 @@
-FROM python:3.11.4-alpine
+FROM python:latest
 LABEL authors="boristoboltsov"
 
 ENV TZ="Europe/Moscow"
