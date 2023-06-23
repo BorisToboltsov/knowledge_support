@@ -75,3 +75,6 @@ urllib3==2.0.3
 virtualenv==20.23.1
 wrapt==1.15.0
 yarl==1.9.2
+SQLAlchemy==2.0.16
+typing_extensions==4.6.3
+psycopg2==2.9.6
