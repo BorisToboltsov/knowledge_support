@@ -1,7 +1,8 @@
 from sqlalchemy import MetaData
 
-from database.schema1 import Post
-from database.schema2 import Employee
+from database.profile.account import Account
+from database.profile.language import InterfaceLanguage
+from database.profile.profile import Profile
 
 """
 Наименование index и constraint по умолчанию:
@@ -23,5 +24,6 @@ convention = {
 
 metadata = MetaData(naming_convention=convention)
 
-Post()
-Employee()
+InterfaceLanguage()
+Account()
+Profile()
