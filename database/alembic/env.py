@@ -1,32 +1,14 @@
-import os
 from logging.config import fileConfig
 
 from alembic import context
-from dotenv import load_dotenv
-from sqlalchemy import URL, engine_from_config, make_url, pool
+from sqlalchemy import engine_from_config, pool
 
 from database import register_table
 from database.base.base import Base
-
-load_dotenv()
-
-# this is the Alembic Config object, which provides
-# access to the values within the .ini file in use.
-url_db = make_url("postgresql+psycopg2://user:pass@host/dbname")
-
-DATABASE = {
-    "drivername": os.getenv("DRIVER_NAME"),
-    "host": os.getenv("HOST"),
-    "port": os.getenv("PORT"),
-    "username": os.getenv("USER_NAME"),
-    "password": os.getenv("PASSWORD"),
-    "database": os.getenv("knowledge_support"),
-    "query": dict(url_db.query),
-}
-
+from database.config import database_url
 
 config = context.config
-config.set_main_option("sqlalchemy.url", str(URL(**DATABASE)))
+config.set_main_option("sqlalchemy.url", str(database_url))
 
 # Interpret the config file for Python logging.
 # This line sets up loggers basically.
