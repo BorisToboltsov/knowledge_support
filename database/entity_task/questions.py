@@ -22,6 +22,18 @@ class Questions(Base):
         ForeignKey("question_language.id", ondelete="NO ACTION"),
         nullable=False,
     )
+    framework_id = Column(
+        UUID,
+        ForeignKey("entity_language.id", ondelete="NO ACTION"),
+        nullable=True,
+        comment="Framework",
+    )
+    entity_language_id = Column(
+        UUID,
+        ForeignKey("entity_language.id", ondelete="NO ACTION"),
+        nullable=False,
+        comment="Programming language or language (english and etc.)",
+    )
 
     def __repr__(self):
         return f"{self.question_language_id.question_text}"
