@@ -1,7 +1,12 @@
 from sqlalchemy import MetaData
 
+from database.entity.entity_event import EntityEvent
+from database.entity.entity_language import EntityLanguage
+from database.entity_task.answer_language import AnswerLanguage
+from database.entity_task.answers import Answers
+from database.entity_task.question_language import QuestionLanguage
+from database.entity_task.questions import Questions
 from database.profile.account import Account
-from database.profile.language import InterfaceLanguage
 from database.profile.profile import Profile
 
 """
@@ -24,6 +29,11 @@ convention = {
 
 metadata = MetaData(naming_convention=convention)
 
-InterfaceLanguage()
+EntityLanguage()
+AnswerLanguage()
+QuestionLanguage()
+Answers()
+Questions()
+EntityEvent()
 Account()
 Profile()
