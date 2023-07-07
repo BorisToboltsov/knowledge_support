@@ -17,16 +17,6 @@ class FilterQuestions(Base):
     algorithm_name = Column(
         name="algorithm_name", type_=String(50), comment="Algorithm name (method name)"
     )
-    interface_language_id = Column(
-        UUID,
-        ForeignKey("entity_language.id", ondelete="NO ACTION"),
-        nullable=False,
-    )
-    account_id = Column(
-        UUID,
-        ForeignKey("account.id", ondelete="NO ACTION"),
-        nullable=False,
-    )
     framework_id = Column(
         UUID,
         ForeignKey("entity_language.id", ondelete="NO ACTION"),
