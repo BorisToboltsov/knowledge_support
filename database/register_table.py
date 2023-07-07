@@ -6,8 +6,10 @@ from database.entity_task.answer_language import AnswerLanguage
 from database.entity_task.answers import Answers
 from database.entity_task.question_language import QuestionLanguage
 from database.entity_task.questions import Questions
+from database.filter.filter_questions import FilterQuestions
 from database.profile.account import Account
 from database.profile.profile import Profile
+from database.profile.user_responses import ProfileAnswers
 
 """
 Наименование index и constraint по умолчанию:
@@ -37,3 +39,5 @@ Questions()
 EntityEvent()
 Account()
 Profile()
+ProfileAnswers()
+FilterQuestions()

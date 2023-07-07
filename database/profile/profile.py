@@ -22,6 +22,11 @@ class Profile(Base):
         ForeignKey("account.id", ondelete="NO ACTION"),
         nullable=False,
     )
+    filter_questions_id = Column(
+        UUID,
+        ForeignKey("filter_questions.id", ondelete="NO ACTION"),
+        nullable=False,
+    )
 
     def __repr__(self):
         return f"{self.id}"
