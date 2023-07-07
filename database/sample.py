@@ -2,7 +2,7 @@ import enum
 
 from sqlalchemy import Column, SmallInteger, String
 
-from database.base.base import Base
+from database.base.model.base import Base
 
 
 class Gender(enum.Enum):

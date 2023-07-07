@@ -1,6 +1,6 @@
 from sqlalchemy import UUID, Boolean, Column, ForeignKey, SmallInteger
 
-from database.base.base import Base
+from database.base.model.base import Base
 
 
 class Questions(Base):

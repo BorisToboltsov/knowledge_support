@@ -1,6 +1,6 @@
 from sqlalchemy import UUID, Column, ForeignKey, Text
 
-from database.base.base import Base
+from database.base.model.base import Base
 
 
 class AnswerLanguage(Base):

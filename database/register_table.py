@@ -1,15 +1,15 @@
 from sqlalchemy import MetaData
 
-from database.entity.entity_event import EntityEvent
-from database.entity.entity_language import EntityLanguage
-from database.entity_task.answer_language import AnswerLanguage
-from database.entity_task.answers import Answers
-from database.entity_task.question_language import QuestionLanguage
-from database.entity_task.questions import Questions
-from database.filter.filter_questions import FilterQuestions
-from database.profile.account import Account
-from database.profile.profile import Profile
-from database.profile.user_responses import ProfileAnswers
+from database.entity.model.entity_event import EntityEvent
+from database.entity.model.entity_language import EntityLanguage
+from database.entity_task.model.answer_language import AnswerLanguage
+from database.entity_task.model.answers import Answers
+from database.entity_task.model.question_language import QuestionLanguage
+from database.entity_task.model.questions import Questions
+from database.filter.model.filter_questions import FilterQuestions
+from database.profile.model.account import Account
+from database.profile.model.profile import Profile
+from database.profile.model.user_responses import ProfileAnswers
 
 """
 Наименование index и constraint по умолчанию:

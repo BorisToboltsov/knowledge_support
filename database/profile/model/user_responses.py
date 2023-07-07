@@ -1,6 +1,6 @@
 from sqlalchemy import UUID, Column, ForeignKey
 
-from database.base.base import Base
+from database.base.model.base import Base
 
 
 class ProfileAnswers(Base):
