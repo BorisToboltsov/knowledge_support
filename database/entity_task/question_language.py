@@ -9,6 +9,11 @@ class QuestionLanguage(Base):
 
     question_text = Column(name="question_text", type_=Text, comment="Question text")
     explanation = Column(name="explanation", type_=Text, comment="Explanation")
+    path_explanation_image = Column(
+        name="path_explanation_image",
+        type_=String(100),
+        comment="Path to explanation image",
+    )
     path_image = Column(name="path_image", type_=String(100), comment="Path to image")
     question_language_id = Column(
         UUID,
