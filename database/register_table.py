@@ -1,7 +1,15 @@
 from sqlalchemy import MetaData
 
-from database.schema1 import Post
-from database.schema2 import Employee
+from database.entity.model.entity_event import EntityEvent
+from database.entity.model.entity_language import EntityLanguage
+from database.entity_task.model.answer_language import AnswerLanguage
+from database.entity_task.model.answers import Answers
+from database.entity_task.model.question_language import QuestionLanguage
+from database.entity_task.model.questions import Questions
+from database.filter.model.filter_questions import FilterQuestions
+from database.profile.model.account import Account
+from database.profile.model.profile import Profile
+from database.profile.model.user_responses import ProfileAnswers
 
 """
 Наименование index и constraint по умолчанию:
@@ -23,5 +31,13 @@ convention = {
 
 metadata = MetaData(naming_convention=convention)
 
-Post()
-Employee()
+EntityLanguage()
+AnswerLanguage()
+QuestionLanguage()
+Answers()
+Questions()
+EntityEvent()
+Account()
+Profile()
+ProfileAnswers()
+FilterQuestions()
