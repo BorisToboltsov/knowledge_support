@@ -11,7 +11,7 @@ class Questions(Base):
         name="question_level", type_=SmallInteger, comment="Question level"
     )
     multi_answer = Column(name="multi_answer", type_=Boolean, comment="Multi answer")
-    question_time = Column(name="time", type_=SmallInteger, comment="Question time")
+    execution_time = Column(name="time", type_=SmallInteger, comment="Question time")
     answers_id = Column(
         UUID,
         ForeignKey("answers.id", ondelete="NO ACTION"),
