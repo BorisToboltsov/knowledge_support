@@ -8,9 +8,9 @@ class Answers(Base):
     __tableargs__ = {"comment": "Answers"}
 
     is_correct = Column(name="is_correct", type_=Boolean, comment="is correct")
-    answer_language_id = Column(
+    answers_id = Column(
         UUID,
-        ForeignKey("answer_language.id", ondelete="NO ACTION"),
+        ForeignKey("answers.id", ondelete="NO ACTION"),
         nullable=False,
     )
 

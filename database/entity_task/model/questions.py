@@ -12,16 +12,6 @@ class Questions(Base):
     )
     multi_answer = Column(name="multi_answer", type_=Boolean, comment="Multi answer")
     execution_time = Column(name="time", type_=SmallInteger, comment="Question time")
-    answers_id = Column(
-        UUID,
-        ForeignKey("answers.id", ondelete="NO ACTION"),
-        nullable=False,
-    )
-    question_language_id = Column(
-        UUID,
-        ForeignKey("question_language.id", ondelete="NO ACTION"),
-        nullable=False,
-    )
     framework_id = Column(
         UUID,
         ForeignKey("entity_language.id", ondelete="NO ACTION"),
