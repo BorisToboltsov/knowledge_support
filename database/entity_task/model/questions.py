@@ -26,4 +26,4 @@ class Questions(Base):
     )
 
     def __repr__(self):
-        return f"{self.question_language_id.question_text}"
+        return f"{self.id}"

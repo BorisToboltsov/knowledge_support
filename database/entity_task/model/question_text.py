@@ -4,8 +4,8 @@ from database.base.model.base import Base
 
 
 class QuestionText(Base):
-    __tablename__ = "question_language"
-    __tableargs__ = {"comment": "Question language"}
+    __tablename__ = "question_text"
+    __tableargs__ = {"comment": "Question text"}
 
     question_text = Column(name="question_text", type_=Text, comment="Question text")
     raw_code = Column(name="raw_code", type_=Text, nullable=True, comment="Raw code")
@@ -29,7 +29,7 @@ class QuestionText(Base):
         ForeignKey("questions.id", ondelete="NO ACTION"),
         nullable=False,
     )
-    question_language_id = Column(
+    entity_language_id = Column(
         UUID,
         ForeignKey("entity_language.id", ondelete="NO ACTION"),
         nullable=False,

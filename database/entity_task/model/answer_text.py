@@ -4,20 +4,23 @@ from database.base.model.base import Base
 
 
 class AnswerText(Base):
-    __tablename__ = "answer_language"
-    __tableargs__ = {"comment": "Answer language"}
+    __tablename__ = "answer_text"
+    __tableargs__ = {"comment": "Answer text"}
 
     answer_text = Column(name="answer_text", type_=Text, comment="Answer text")
+    answer_row_text = Column(
+        name="answer__row_text", type_=Text, comment="Answer row text"
+    )
     answer_id = Column(
         UUID,
         ForeignKey("answers.id", ondelete="NO ACTION"),
         nullable=False,
     )
-    answer_language_id = Column(
+    entity_language_id = Column(
         UUID,
         ForeignKey("entity_language.id", ondelete="NO ACTION"),
         nullable=False,
     )
 
     def __repr__(self):
-        return f"{self.answer_text} {self.answer_language_id.entity_name}"
+        return f"{self.answer_text}"
