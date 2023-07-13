@@ -1,4 +1,4 @@
-from sqlalchemy import UUID, Boolean, Column, ForeignKey, SmallInteger
+from sqlalchemy import Boolean, Column, ForeignKey, SmallInteger
 
 from database.base.model.base import Base
 
@@ -13,13 +13,11 @@ class Questions(Base):
     multi_answer = Column(name="multi_answer", type_=Boolean, comment="Multi answer")
     execution_time = Column(name="time", type_=SmallInteger, comment="Question time")
     framework_id = Column(
-        UUID,
         ForeignKey("entity_language.id", ondelete="NO ACTION"),
         nullable=True,
         comment="Framework",
     )
     entity_language_id = Column(
-        UUID,
         ForeignKey("entity_language.id", ondelete="NO ACTION"),
         nullable=False,
         comment="Programming language or language (english and etc.)",

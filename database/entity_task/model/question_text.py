@@ -1,4 +1,4 @@
-from sqlalchemy import UUID, Column, ForeignKey, String, Text
+from sqlalchemy import Column, ForeignKey, String, Text
 
 from database.base.model.base import Base
 
@@ -21,19 +21,18 @@ class QuestionText(Base):
     path_explanation_image = Column(
         name="path_explanation_image",
         type_=String(100),
+        nullable=True,
         comment="Path to explanation image",
     )
     path_image = Column(name="path_image", type_=String(100), comment="Path to image")
     question_id = Column(
-        UUID,
         ForeignKey("questions.id", ondelete="NO ACTION"),
         nullable=False,
     )
     entity_language_id = Column(
-        UUID,
         ForeignKey("entity_language.id", ondelete="NO ACTION"),
         nullable=False,
     )
 
     def __repr__(self):
-        return f"{self.question_text} {self.question_language_id.entity_name}"
+        return f"{self.question_text} {self.entity_language_id.entity_name}"
