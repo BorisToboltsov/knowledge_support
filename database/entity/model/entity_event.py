@@ -1,4 +1,4 @@
-from sqlalchemy import UUID, Column, ForeignKey, SmallInteger, String
+from sqlalchemy import Column, ForeignKey, SmallInteger, String
 
 from database.base.model.base import Base
 
@@ -12,7 +12,6 @@ class EntityEvent(Base):
         name="questions_count", type_=SmallInteger, comment="Questions count"
     )
     filter_questions_id = Column(
-        UUID,
         ForeignKey("filter_questions.id", ondelete="NO ACTION"),
         nullable=False,
     )
