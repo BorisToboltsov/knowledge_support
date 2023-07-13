@@ -7,10 +7,13 @@ class Account(Base):
     __tablename__ = "account"
     __tableargs__ = {"comment": "Аккаунт"}
 
-    telegram_username = Column(
-        name="telegram_username", type_=String(100), comment="Telegram username"
+    driver = Column(name="driver", type_=String(100), comment="Telegram, etc.")
+    username = Column(
+        name="username", type_=String(100), comment="Telegram username, etc."
     )
-    telegram_id = Column(name="telegram_id", type_=Integer, comment="Telegram id")
+    driver_login = Column(
+        name="driver_login", type_=Integer, comment="Telegram id, etc."
+    )
 
     def __repr__(self):
-        return f"{self.id} {self.telegram_username}"
+        return f"{self.id} {self.driver}"

@@ -1,4 +1,4 @@
-from sqlalchemy import UUID, Column, ForeignKey
+from sqlalchemy import Column, ForeignKey
 
 from database.base.model.base import Base
 
@@ -8,12 +8,10 @@ class ProfileAnswers(Base):
     __tableargs__ = {"comment": "User responses"}
 
     profile_id = Column(
-        UUID,
         ForeignKey("profile.id", ondelete="NO ACTION"),
         nullable=False,
     )
     answer_id = Column(
-        UUID,
         ForeignKey("answers.id", ondelete="NO ACTION"),
         nullable=False,
     )

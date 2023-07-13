@@ -1,4 +1,4 @@
-from sqlalchemy import UUID, BigInteger, Column, DateTime, ForeignKey
+from sqlalchemy import BigInteger, Column, DateTime, ForeignKey
 
 from database.base.model.base import Base
 
@@ -13,17 +13,14 @@ class Profile(Base):
         name="answers_false", type_=BigInteger, comment="Answers False"
     )
     interface_language_id = Column(
-        UUID,
         ForeignKey("entity_language.id", ondelete="NO ACTION"),
         nullable=False,
     )
     account_id = Column(
-        UUID,
         ForeignKey("account.id", ondelete="NO ACTION"),
         nullable=False,
     )
     filter_questions_id = Column(
-        UUID,
         ForeignKey("filter_questions.id", ondelete="NO ACTION"),
         nullable=False,
     )

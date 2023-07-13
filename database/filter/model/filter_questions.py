@@ -1,4 +1,4 @@
-from sqlalchemy import UUID, Column, ForeignKey, SmallInteger, String
+from sqlalchemy import Column, ForeignKey, SmallInteger, String
 
 from database.base.model.base import Base
 
@@ -18,13 +18,11 @@ class FilterQuestions(Base):
         name="algorithm_name", type_=String(50), comment="Algorithm name (method name)"
     )
     framework_id = Column(
-        UUID,
         ForeignKey("entity_language.id", ondelete="NO ACTION"),
         nullable=True,
         comment="Framework",
     )
     entity_language_id = Column(
-        UUID,
         ForeignKey("entity_language.id", ondelete="NO ACTION"),
         nullable=False,
         comment="Programming language or language (english and etc.)",
