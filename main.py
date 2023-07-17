@@ -3,37 +3,35 @@ import os
 from typing import NoReturn
 
 import sentry_sdk
-from aiogram import Bot, Dispatcher, executor, types
+from aiogram import executor, types
 from dotenv import load_dotenv
+
+from telegram_bot.connect import dp
+from telegram_bot.distribution_handlers.help import distribution_help
+from telegram_bot.distribution_handlers.message import distribution_message
+from telegram_bot.distribution_handlers.start import distribution_start
 
 load_dotenv()
 
 sentry_sdk.init(os.getenv("API_TOKEN_SENTRY"))
 
-API_TOKEN_TELEGRAM = os.getenv("API_TOKEN_TELEGRAM")
-
 # Configure logging
 logging.basicConfig(level=logging.INFO)
 
-# Initialize bot and dispatcher
-bot = Bot(token=API_TOKEN_TELEGRAM)
-dp = Dispatcher(bot)
 
-
-@dp.message_handler(commands=["start", "help"])
+@dp.message_handler(commands=["start"])
 async def send_welcome(message: types.Message) -> NoReturn:
-    """
-    This handler will be called when user sends `/start` or `/help` command
-    """
-    await message.reply("Hi!\nI'm EchoBot!\nPowered by aiogram.")
+    await distribution_start(message)
+
+
+@dp.message_handler(commands=["help"])
+async def send_welcome(message: types.Message) -> NoReturn:
+    await distribution_help(message)
 
 
 @dp.message_handler()
 async def echo(message: types.Message) -> NoReturn:
-    # old style:
-    # await bot.send_message(message.chat.id, message.text)
-
-    await message.answer(message.text)
+    await distribution_message(message)
 
 
 if __name__ == "__main__":
