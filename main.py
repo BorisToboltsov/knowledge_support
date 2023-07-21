@@ -3,17 +3,11 @@ import logging
 import os
 
 import sentry_sdk
-from aiogram import Dispatcher
 from dotenv import load_dotenv
 
 from telegram_bot.connect import bot, dp
-from telegram_bot.handlers.commands.commands_distribution import register_commands
-from telegram_bot.handlers.message.message_distribution import register_message
-
-
-def register_all_handlers(dp: Dispatcher):
-    register_message(dp)
-    register_commands(dp)
+from telegram_bot.handlers.commands.commands_handlers import router_commands
+from telegram_bot.handlers.message.message_handlers import router_message
 
 
 async def main():
@@ -25,7 +19,11 @@ async def main():
     # Configure logging
     logging.basicConfig(level=logging.INFO)
 
-    register_all_handlers(dp)
+    # Регистрация роутеров
+    dp.include_router(router_commands)
+    dp.include_router(router_message)
+
+    # Запуск Long polling
     await dp.start_polling(bot)
 
 
