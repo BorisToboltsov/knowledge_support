@@ -1,13 +1,13 @@
-LIST_MAIN_MENU = ["Получить задачу"]
-# LIST_MAIN_MENU = ["Получить задачу", "Статистика", "Настройки"]
+MAIN_MENU_TECH_LIST = ["markup_get_task"]
+# LIST_MAIN_MENU = ["markup_get_task", "markup_statistics", "markup_settings"]
 
-LIST_SETTINGS_MENU = [
-    "Выбор языка программирования",
-    "Сложность вопросов",
-    "Фраймворки",
-    "Не решенные задачи",
-    "Выдача рандомных вопросов из всей базы",
-    "Главное меню",
+SETTINGS_MENU_TECH_LIST = [
+    "markup_choice_programming_language",
+    "markup_complexity_questions",
+    "markup_choice_framework",
+    "markup_unsolved_tasks",
+    "markup_choosing_random_tasks",
+    "markup_main_menu",
 ]
 
-LIST_STATISTICS_MENU = ["Главное меню"]
+STATISTICS_MENU_TECH_LIST = ["markup_main_menu"]

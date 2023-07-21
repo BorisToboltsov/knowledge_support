@@ -1,38 +1,33 @@
+import asyncio
 import logging
 import os
-from typing import NoReturn
 
 import sentry_sdk
-from aiogram import executor, types
+from aiogram import Dispatcher
 from dotenv import load_dotenv
 
-from telegram_bot.connect import dp
-from telegram_bot.distribution_handlers.help import distribution_help
-from telegram_bot.distribution_handlers.message import distribution_message
-from telegram_bot.distribution_handlers.start import distribution_start
-
-load_dotenv()
-
-sentry_sdk.init(os.getenv("API_TOKEN_SENTRY"))
-
-# Configure logging
-logging.basicConfig(level=logging.INFO)
+from telegram_bot.connect import bot, dp
+from telegram_bot.handlers.commands.commands_distribution import register_commands
+from telegram_bot.handlers.message.message_distribution import register_message
 
 
-@dp.message_handler(commands=["start"])
-async def send_welcome(message: types.Message) -> NoReturn:
-    await distribution_start(message)
+def register_all_handlers(dp: Dispatcher):
+    register_message(dp)
+    register_commands(dp)
 
 
-@dp.message_handler(commands=["help"])
-async def send_welcome(message: types.Message) -> NoReturn:
-    await distribution_help(message)
+async def main():
+    load_dotenv()
 
+    # Configure Sentry
+    sentry_sdk.init(os.getenv("API_TOKEN_SENTRY"))
 
-@dp.message_handler()
-async def echo(message: types.Message) -> NoReturn:
-    await distribution_message(message)
+    # Configure logging
+    logging.basicConfig(level=logging.INFO)
+
+    register_all_handlers(dp)
+    await dp.start_polling(bot)
 
 
 if __name__ == "__main__":
-    executor.start_polling(dp, skip_updates=True)
+    asyncio.run(main())
