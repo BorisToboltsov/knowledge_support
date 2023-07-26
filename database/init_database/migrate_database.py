@@ -1,5 +1,3 @@
-import json
-
 from sqlalchemy.orm import sessionmaker
 
 from database.connect_db import engine
@@ -8,6 +6,7 @@ from database.entity_task.model.answer_text import AnswerText
 from database.entity_task.model.answers import Answers
 from database.entity_task.model.question_text import QuestionText
 from database.entity_task.model.questions import Questions
+from database.init_database.merge_json import questions_answers
 
 session_main = sessionmaker(bind=engine)
 
@@ -22,15 +21,14 @@ def get_entity_language(entity_name):
     )
 
 
-def load_json(path_to_file):
-    with open(path_to_file, "r") as raw_questions:
-        questions_answers = json.load(raw_questions)
-
-    return questions_answers
+# def load_json(path_to_file):
+#     with open(path_to_file, "r") as raw_questions:
+#         questions_answers = json.load(raw_questions)
+#
+#     return questions_answers
 
 
 def save_question_answers():
-    questions_answers = load_json("init_database/fixtures/questions_answers.json")
 
     for question_answer in questions_answers:
         programming_language_name = get_entity_language(
