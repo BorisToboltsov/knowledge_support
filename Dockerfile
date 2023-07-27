@@ -8,7 +8,7 @@ WORKDIR /knowledge_support
 COPY . .
 
 RUN pip install --upgrade pip
-RUN pip install -r requirements_dev.txt
+RUN pip install -r requirements.txt
 RUN rm -rf /etc/localtime
 RUN ln -s /usr/share/zoneinfo/Europe/Moscow /etc/localtime
 RUN echo "Europe/Moscow" > /etc/timezone
