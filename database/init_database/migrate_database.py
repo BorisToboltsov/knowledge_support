@@ -29,7 +29,6 @@ def get_entity_language(entity_name):
 
 
 def save_question_answers():
-
     for question_answer in questions_answers:
         programming_language_name = get_entity_language(
             question_answer["question"]["programming_language"]
