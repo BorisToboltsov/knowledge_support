@@ -1,6 +1,12 @@
 from sqlalchemy import Column, String
+from sqlalchemy.orm import sessionmaker
 
 from database.base.model.base import Base
+from database.connect_db import engine
+
+session_main = sessionmaker(bind=engine)
+
+session = session_main()
 
 
 class EntityLanguage(Base):
@@ -15,3 +21,11 @@ class EntityLanguage(Base):
 
     def __repr__(self):
         return f"{self.id} {self.entity_name}"
+
+    @staticmethod
+    def get_entity_language(entity_name: str):
+        return (
+            session.query(EntityLanguage)
+            .filter(EntityLanguage.entity_name == entity_name)
+            .one()
+        )

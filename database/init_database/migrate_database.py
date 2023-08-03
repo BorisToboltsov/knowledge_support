@@ -13,28 +13,15 @@ session_main = sessionmaker(bind=engine)
 session = session_main()
 
 
-def get_entity_language(entity_name):
-    return (
-        session.query(EntityLanguage)
-        .filter(EntityLanguage.entity_name == entity_name)
-        .one()
-    )
-
-
-# def load_json(path_to_file):
-#     with open(path_to_file, "r") as raw_questions:
-#         questions_answers = json.load(raw_questions)
-#
-#     return questions_answers
-
-
 def save_question_answers():
+    print("Start migrate database")
+
     for question_answer in questions_answers:
-        programming_language_name = get_entity_language(
+        programming_language_name = EntityLanguage.get_entity_language(
             question_answer["question"]["programming_language"]
         )
-        english_language_name = get_entity_language("English")
-        russian_language_name = get_entity_language("Russian")
+        english_language_name = EntityLanguage.get_entity_language("English")
+        russian_language_name = EntityLanguage.get_entity_language("Russian")
 
         new_question = Questions(
             question_level=1,
@@ -85,3 +72,5 @@ def save_question_answers():
             session.add_all([new_answer_text_ru, new_answer_text_en])
 
         session.commit()
+
+    print("Complete migrate database")

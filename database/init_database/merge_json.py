@@ -1,5 +1,7 @@
 import json
 
+print("Start merge json")
+
 with open("database/init_database/fixtures/question.json", "r") as raw_questions:
     questions = json.load(raw_questions)
 
@@ -15,3 +17,5 @@ for question in questions["questions"]:
         if question["id"] == answer["questions_id"]:
             answers_list.append(answer)
     questions_answers.append({"question": question, "answers": answers_list})
+
+print("Complete merge json")
