@@ -1,10 +1,10 @@
 from sqlalchemy import Column, ForeignKey, SmallInteger, String
 
 from database.base.model.base import Base
-from database.mixin.base_mixin import CRUDMixin
+from database.mixin.base_mixin import BaseMixin, CreateMixin
 
 
-class EntityEvent(CRUDMixin, Base):
+class EntityEvent(CreateMixin, BaseMixin, Base):
     __tablename__ = "entity_event"
     __tableargs__ = {"comment": "Entity Event"}
 
@@ -18,4 +18,4 @@ class EntityEvent(CRUDMixin, Base):
     )
 
     def __repr__(self):
-        return f"{self.id} {self.entity_name}"
+        return f"{self.entity_name}"

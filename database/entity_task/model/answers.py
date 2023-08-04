@@ -2,10 +2,10 @@ from sqlalchemy import Boolean, Column, ForeignKey
 from sqlalchemy.orm import relationship
 
 from database.base.model.base import Base
-from database.mixin.base_mixin import CRUDMixin
+from database.mixin.base_mixin import BaseMixin, CreateMixin
 
 
-class Answers(CRUDMixin, Base):
+class Answers(CreateMixin, BaseMixin, Base):
     __tablename__ = "answers"
     __tableargs__ = {"comment": "Answers"}
 

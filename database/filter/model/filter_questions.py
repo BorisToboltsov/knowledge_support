@@ -1,10 +1,10 @@
 from sqlalchemy import Column, ForeignKey, SmallInteger, String
 
 from database.base.model.base import Base
-from database.mixin.base_mixin import CRUDMixin
+from database.mixin.base_mixin import BaseMixin, CreateMixin
 
 
-class FilterQuestions(CRUDMixin, Base):
+class FilterQuestions(CreateMixin, BaseMixin, Base):
     __tablename__ = "filter_questions"
     __tableargs__ = {"comment": "Filter Questions"}
 

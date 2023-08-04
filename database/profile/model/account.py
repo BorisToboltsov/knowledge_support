@@ -1,10 +1,10 @@
 from sqlalchemy import Column, Integer, String
 
 from database.base.model.base import Base
-from database.mixin.base_mixin import CRUDMixin
+from database.mixin.base_mixin import BaseMixin, CreateMixin
 
 
-class Account(CRUDMixin, Base):
+class Account(CreateMixin, BaseMixin, Base):
     __tablename__ = "account"
     __tableargs__ = {"comment": "Аккаунт"}
 

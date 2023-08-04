@@ -1,10 +1,10 @@
 from sqlalchemy import BigInteger, Column, DateTime, ForeignKey
 
 from database.base.model.base import Base
-from database.mixin.base_mixin import CRUDMixin
+from database.mixin.base_mixin import BaseMixin, CreateMixin
 
 
-class Profile(CRUDMixin, Base):
+class Profile(CreateMixin, BaseMixin, Base):
     __tablename__ = "profile"
     __tableargs__ = {"comment": "Profile"}
 
