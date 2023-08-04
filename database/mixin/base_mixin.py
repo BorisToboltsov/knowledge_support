@@ -30,7 +30,7 @@ class BaseMixin:
 
 class CreateMixin:
     @classmethod
-    def create(cls, **kw):
-        obj = cls(**kw)
+    def create(cls, **kwargs):
+        obj = cls(**kwargs)
         session.add(obj)
         session.commit()
