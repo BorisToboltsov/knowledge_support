@@ -1,5 +1,5 @@
 from database.connect_db import engine, get_session
-from database.entity.model.entity_language import EntityLanguage
+from database.entity.crud.entity_language import CrudEntityLanguage
 from database.entity_task.model.answer_text import AnswerText
 from database.entity_task.model.answers import Answers
 from database.entity_task.model.question_text import QuestionText
@@ -13,11 +13,11 @@ def save_question_answers():
     print("Start migrate database")
 
     for question_answer in questions_answers:
-        programming_language_name = EntityLanguage.get_entity_language(
+        programming_language_name = CrudEntityLanguage.get_entity_language(
             question_answer["question"]["programming_language"]
         )
-        english_language_name = EntityLanguage.get_entity_language("English")
-        russian_language_name = EntityLanguage.get_entity_language("Russian")
+        english_language_name = CrudEntityLanguage.get_entity_language("English")
+        russian_language_name = CrudEntityLanguage.get_entity_language("Russian")
 
         new_question = Questions(
             question_level=1,

@@ -1,5 +1,5 @@
 from database.connect_db import engine, get_session
-from database.entity.model.entity_language import EntityLanguage
+from database.entity.crud.entity_language import CrudEntityLanguage
 from database.filter.model.filter_questions import FilterQuestions
 
 session = get_session(engine)
@@ -8,7 +8,7 @@ session = get_session(engine)
 def save_filter_questions():
     print("Start save filter questions")
 
-    python_language_name = EntityLanguage.get_entity_language("Python")
+    python_language_name = CrudEntityLanguage.get_entity_language("Python")
 
     filter_questions_list = [
         {
