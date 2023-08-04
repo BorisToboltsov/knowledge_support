@@ -5,7 +5,7 @@ session = get_session(engine)
 
 
 def save_entity_language():
-    print("start add entity language")
+    print("Start add entity language")
 
     entity_languages_list = [
         "Python",
@@ -28,4 +28,4 @@ def save_entity_language():
         # Благодаря этой строчке мы добавляем данные а таблицу
         session.commit()
 
-        print("complete add entity language")
+    print("Complete add entity language")
