@@ -1,9 +1,10 @@
 from sqlalchemy import Column, ForeignKey, String, Text
 
 from database.base.model.base import Base
+from database.mixin.base_mixin import CRUDMixin
 
 
-class QuestionText(Base):
+class QuestionText(CRUDMixin, Base):
     __tablename__ = "question_text"
     __tableargs__ = {"comment": "Question text"}
 

@@ -1,9 +1,10 @@
 from sqlalchemy import Column, Integer, String
 
 from database.base.model.base import Base
+from database.mixin.base_mixin import CRUDMixin
 
 
-class Account(Base):
+class Account(CRUDMixin, Base):
     __tablename__ = "account"
     __tableargs__ = {"comment": "Аккаунт"}
 

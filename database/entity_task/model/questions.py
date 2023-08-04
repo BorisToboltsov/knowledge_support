@@ -1,9 +1,10 @@
 from sqlalchemy import Boolean, Column, ForeignKey, SmallInteger
 
 from database.base.model.base import Base
+from database.mixin.base_mixin import CRUDMixin
 
 
-class Questions(Base):
+class Questions(CRUDMixin, Base):
     __tablename__ = "questions"
     __tableargs__ = {"comment": "Questions"}
 

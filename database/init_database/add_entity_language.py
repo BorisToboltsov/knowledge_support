@@ -1,11 +1,7 @@
-from sqlalchemy.orm import sessionmaker
-
-from database.connect_db import engine
+from database.connect_db import engine, get_session
 from database.entity.model.entity_language import EntityLanguage
 
-session_main = sessionmaker(bind=engine)
-
-session = session_main()
+session = get_session(engine)
 
 
 def save_entity_language():

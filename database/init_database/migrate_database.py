@@ -1,6 +1,4 @@
-from sqlalchemy.orm import sessionmaker
-
-from database.connect_db import engine
+from database.connect_db import engine, get_session
 from database.entity.model.entity_language import EntityLanguage
 from database.entity_task.model.answer_text import AnswerText
 from database.entity_task.model.answers import Answers
@@ -8,9 +6,7 @@ from database.entity_task.model.question_text import QuestionText
 from database.entity_task.model.questions import Questions
 from database.init_database.merge_json import questions_answers
 
-session_main = sessionmaker(bind=engine)
-
-session = session_main()
+session = get_session(engine)
 
 
 def save_question_answers():

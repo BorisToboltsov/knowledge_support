@@ -1,12 +1,8 @@
-from sqlalchemy.orm import sessionmaker
-
-from database.connect_db import engine
+from database.connect_db import engine, get_session
 from database.entity.model.entity_language import EntityLanguage
 from database.filter.model.filter_questions import FilterQuestions
 
-session_main = sessionmaker(bind=engine)
-
-session = session_main()
+session = get_session(engine)
 
 
 def save_filter_questions():

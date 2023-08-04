@@ -3,13 +3,14 @@ from sqlalchemy.orm import sessionmaker
 
 from database.base.model.base import Base
 from database.connect_db import engine
+from database.mixin.base_mixin import CRUDMixin
 
 session_main = sessionmaker(bind=engine)
 
 session = session_main()
 
 
-class EntityLanguage(Base):
+class EntityLanguage(CRUDMixin, Base):
     __tablename__ = "entity_language"
     __tableargs__ = {"comment": "Entity Language"}
 

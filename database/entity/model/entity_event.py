@@ -1,9 +1,10 @@
 from sqlalchemy import Column, ForeignKey, SmallInteger, String
 
 from database.base.model.base import Base
+from database.mixin.base_mixin import CRUDMixin
 
 
-class EntityEvent(Base):
+class EntityEvent(CRUDMixin, Base):
     __tablename__ = "entity_event"
     __tableargs__ = {"comment": "Entity Event"}
 
