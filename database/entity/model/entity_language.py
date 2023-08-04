@@ -4,14 +4,13 @@ from sqlalchemy.orm import sessionmaker
 from database.base.mixin.base_mixin import BaseMixin, CreateMixin
 from database.base.model.base import Base
 from database.connect_db import engine
-from database.entity.mixin.entity_language import MixinCrudEntityLanguage
 
 session_main = sessionmaker(bind=engine)
 
 session = session_main()
 
 
-class EntityLanguage(MixinCrudEntityLanguage, CreateMixin, BaseMixin, Base):
+class EntityLanguage(CreateMixin, BaseMixin, Base):
     __tablename__ = "entity_language"
     __tableargs__ = {"comment": "Entity Language"}
 
