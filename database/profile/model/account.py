@@ -1,7 +1,7 @@
 from sqlalchemy import Column, Integer, String
 
+from database.base.mixin.base_mixin import BaseMixin, CreateMixin
 from database.base.model.base import Base
-from database.mixin.base_mixin import BaseMixin, CreateMixin
 
 
 class Account(CreateMixin, BaseMixin, Base):

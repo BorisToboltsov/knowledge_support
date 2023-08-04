@@ -1,8 +1,8 @@
 from sqlalchemy import Boolean, Column, ForeignKey
 from sqlalchemy.orm import relationship
 
+from database.base.mixin.base_mixin import BaseMixin, CreateMixin
 from database.base.model.base import Base
-from database.mixin.base_mixin import BaseMixin, CreateMixin
 
 
 class Answers(CreateMixin, BaseMixin, Base):
