@@ -6,7 +6,7 @@ session = get_session(engine)
 
 
 def save_filter_questions():
-    print("Start save filter questions")
+    print("Start save task questions")
 
     python_language_name = CrudEntityLanguage.get_entity_language("Python")
 
@@ -40,4 +40,4 @@ def save_filter_questions():
         # Благодаря этой строчке мы добавляем данные а таблицу
         session.commit()
 
-        print("Complete save filter questions")
+        print("Complete save task questions")
