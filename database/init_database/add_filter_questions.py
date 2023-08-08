@@ -29,7 +29,6 @@ def save_filter_questions():
             question_lvl_min=filter_questions["question_lvl_min"],
             question_lvl_max=filter_questions["question_lvl_max"],
             algorithm_name=filter_questions["algorithm_name"],
-            # entity_framework_id=filter_questions["entity_framework_id"],
             tasks_count=filter_questions["tasks_count"],
             entity_language_id=filter_questions["entity_language_id"].id,
         )
