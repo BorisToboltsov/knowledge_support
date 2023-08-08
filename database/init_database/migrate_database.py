@@ -1,41 +1,23 @@
-from sqlalchemy.orm import sessionmaker
-
-from database.connect_db import engine
-from database.entity.model.entity_language import EntityLanguage
+from database.connect_db import engine, get_session
+from database.entity.crud.entity_language import CrudEntityLanguage
 from database.entity_task.model.answer_text import AnswerText
 from database.entity_task.model.answers import Answers
 from database.entity_task.model.question_text import QuestionText
 from database.entity_task.model.questions import Questions
 from database.init_database.merge_json import questions_answers
 
-session_main = sessionmaker(bind=engine)
-
-session = session_main()
-
-
-def get_entity_language(entity_name):
-    return (
-        session.query(EntityLanguage)
-        .filter(EntityLanguage.entity_name == entity_name)
-        .one()
-    )
-
-
-# def load_json(path_to_file):
-#     with open(path_to_file, "r") as raw_questions:
-#         questions_answers = json.load(raw_questions)
-#
-#     return questions_answers
+session = get_session(engine)
 
 
 def save_question_answers():
+    print("Start migrate database")
 
     for question_answer in questions_answers:
-        programming_language_name = get_entity_language(
+        programming_language_name = CrudEntityLanguage.get_entity_language(
             question_answer["question"]["programming_language"]
         )
-        english_language_name = get_entity_language("English")
-        russian_language_name = get_entity_language("Russian")
+        english_language_name = CrudEntityLanguage.get_entity_language("English")
+        russian_language_name = CrudEntityLanguage.get_entity_language("Russian")
 
         new_question = Questions(
             question_level=1,
@@ -86,3 +68,5 @@ def save_question_answers():
             session.add_all([new_answer_text_ru, new_answer_text_en])
 
         session.commit()
+
+    print("Complete migrate database")

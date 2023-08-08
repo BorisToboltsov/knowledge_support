@@ -1,9 +1,10 @@
 from sqlalchemy import Column, ForeignKey, SmallInteger, String
 
+from database.base.mixin.base_mixin import BaseMixin, CreateMixin
 from database.base.model.base import Base
 
 
-class FilterQuestions(Base):
+class FilterQuestions(CreateMixin, BaseMixin, Base):
     __tablename__ = "filter_questions"
     __tableargs__ = {"comment": "Filter Questions"}
 
@@ -17,15 +18,16 @@ class FilterQuestions(Base):
     algorithm_name = Column(
         name="algorithm_name", type_=String(50), comment="Algorithm name (method name)"
     )
-    framework_id = Column(
-        ForeignKey("entity_language.id", ondelete="NO ACTION"),
-        nullable=True,
-        comment="Framework",
-    )
     entity_language_id = Column(
         ForeignKey("entity_language.id", ondelete="NO ACTION"),
         nullable=False,
         comment="Programming language or language (english and etc.)",
+    )
+    tasks_count = Column(
+        name="tasks_count",
+        type_=SmallInteger,
+        comment="Number of tasks",
+        nullable=True,
     )
 
     def __repr__(self):

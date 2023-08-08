@@ -8,6 +8,7 @@ from dotenv import load_dotenv
 from telegram_bot.connect import bot, dp
 from telegram_bot.handlers.commands.commands_handlers import router_commands
 from telegram_bot.handlers.message.message_handlers import router_message
+from telegram_bot.handlers.poll_answers.poll_answers_handlers import router_poll_answers
 
 
 async def main():
@@ -22,6 +23,7 @@ async def main():
     # Регистрация роутеров
     dp.include_router(router_commands)
     dp.include_router(router_message)
+    dp.include_router(router_poll_answers)
 
     # Запуск Long polling
     await dp.start_polling(bot)

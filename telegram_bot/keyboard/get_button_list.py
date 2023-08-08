@@ -9,6 +9,6 @@ def get_button_list(button_tech_list: list) -> list:
     for button_tech in button_tech_list:
         # TODO: Исключение если не найден технический указатель или язык
         button = markup_menu_translate_dict[button_tech][language]
-
         button_list.append(button)
+
     return button_list
