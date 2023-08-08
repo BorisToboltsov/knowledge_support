@@ -18,4 +18,4 @@ for question in questions["questions"]:
             answers_list.append(answer)
     questions_answers.append({"question": question, "answers": answers_list})
 
-print("Complete merge json")
+print("Complete merge json\n")
