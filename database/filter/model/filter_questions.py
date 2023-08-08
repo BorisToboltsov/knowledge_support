@@ -28,6 +28,9 @@ class FilterQuestions(CreateMixin, BaseMixin, Base):
         nullable=False,
         comment="Programming language or language (english and etc.)",
     )
+    tasks_count = Column(
+        name="tasks_count", type_=SmallInteger, comment="Number of tasks"
+    )
 
     def __repr__(self):
         return f"{self.filter_name}"
