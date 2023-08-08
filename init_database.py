@@ -3,5 +3,5 @@ from database.init_database.add_filter_questions import save_filter_questions
 from database.init_database.migrate_database import save_question_answers
 
 save_entity_language()
-save_question_answers()
 save_filter_questions()
+save_question_answers()

@@ -18,10 +18,10 @@ class FilterQuestions(CreateMixin, BaseMixin, Base):
     algorithm_name = Column(
         name="algorithm_name", type_=String(50), comment="Algorithm name (method name)"
     )
-    framework_id = Column(
-        ForeignKey("entity_language.id", ondelete="NO ACTION"),
-        nullable=True,
+    entity_framework_id = Column(
+        ForeignKey("entity_framework.id", ondelete="NO ACTION"),
         comment="Framework",
+        nullable=True,
     )
     entity_language_id = Column(
         ForeignKey("entity_language.id", ondelete="NO ACTION"),
@@ -29,7 +29,10 @@ class FilterQuestions(CreateMixin, BaseMixin, Base):
         comment="Programming language or language (english and etc.)",
     )
     tasks_count = Column(
-        name="tasks_count", type_=SmallInteger, comment="Number of tasks"
+        name="tasks_count",
+        type_=SmallInteger,
+        comment="Number of tasks",
+        nullable=True,
     )
 
     def __repr__(self):
