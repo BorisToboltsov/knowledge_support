@@ -18,11 +18,6 @@ class FilterQuestions(CreateMixin, BaseMixin, Base):
     algorithm_name = Column(
         name="algorithm_name", type_=String(50), comment="Algorithm name (method name)"
     )
-    entity_framework_id = Column(
-        ForeignKey("entity_framework.id", ondelete="NO ACTION"),
-        comment="Framework",
-        nullable=True,
-    )
     entity_language_id = Column(
         ForeignKey("entity_language.id", ondelete="NO ACTION"),
         nullable=False,
