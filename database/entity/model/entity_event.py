@@ -1,9 +1,10 @@
 from sqlalchemy import Column, ForeignKey, SmallInteger, String
 
+from database.base.mixin.base_mixin import BaseMixin, CreateMixin
 from database.base.model.base import Base
 
 
-class EntityEvent(Base):
+class EntityEvent(CreateMixin, BaseMixin, Base):
     __tablename__ = "entity_event"
     __tableargs__ = {"comment": "Entity Event"}
 
@@ -17,4 +18,4 @@ class EntityEvent(Base):
     )
 
     def __repr__(self):
-        return f"{self.id} {self.entity_name}"
+        return f"{self.entity_name}"

@@ -1,6 +1,7 @@
 import logging
 
 from sqlalchemy import create_engine
+from sqlalchemy.orm import sessionmaker
 
 from database.config import database_url
 
@@ -12,3 +13,10 @@ logging.basicConfig(
 )
 
 engine = create_engine(database_url)
+
+
+def get_session(engine_db):
+    session_main = sessionmaker(bind=engine_db)
+    session = session_main()
+
+    return session

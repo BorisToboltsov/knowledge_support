@@ -1,13 +1,11 @@
-from sqlalchemy.orm import sessionmaker
-
-from database.connect_db import engine
+from database.connect_db import engine, get_session
 from database.entity.model.entity_language import EntityLanguage
 
+session = get_session(engine)
 
-def save_fixtures():
-    session_main = sessionmaker(bind=engine)
 
-    session = session_main()
+def save_entity_language():
+    print("Start add entity language")
 
     entity_languages_list = [
         "Python",
@@ -29,3 +27,5 @@ def save_fixtures():
 
         # Благодаря этой строчке мы добавляем данные а таблицу
         session.commit()
+
+    print("Complete add entity language")
