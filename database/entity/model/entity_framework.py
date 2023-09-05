@@ -4,8 +4,8 @@ from database.base.mixin.base_mixin import BaseMixin, CreateMixin
 from database.base.model.base import Base
 
 
-class EntityFramework(CreateMixin, BaseMixin, Base):
-    __tablename__ = "entity_framework"
+class EntityFrameworks(CreateMixin, BaseMixin, Base):
+    __tablename__ = "entity_frameworks"
     __tableargs__ = {"comment": "Entity Framework"}
 
     entity_name = Column(
@@ -15,7 +15,8 @@ class EntityFramework(CreateMixin, BaseMixin, Base):
     )
     entity_language_id = Column(
         ForeignKey("entity_language.id", ondelete="NO ACTION"),
-        nullable=False,
+        nullable=True,
+        comment="Programming language or language (english and etc.)",
     )
 
     def __repr__(self):

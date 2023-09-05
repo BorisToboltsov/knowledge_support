@@ -34,3 +34,4 @@ class CreateMixin:
         obj = cls(**kwargs)
         session.add(obj)
         session.commit()
+        return obj

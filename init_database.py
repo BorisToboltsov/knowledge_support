@@ -1,7 +1,9 @@
+from database.init_database.add_entity_framework import save_entity_framework
 from database.init_database.add_entity_language import save_entity_language
 from database.init_database.add_filter_questions import save_filter_questions
 from database.init_database.migrate_database import save_question_answers
 
 save_entity_language()
+save_entity_framework()
 save_filter_questions()
 save_question_answers()

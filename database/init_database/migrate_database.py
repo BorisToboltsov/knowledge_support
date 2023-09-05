@@ -69,4 +69,4 @@ def save_question_answers():
 
         session.commit()
 
-    print("Complete migrate database")
+    print("Complete migrate database\n")

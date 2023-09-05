@@ -6,7 +6,7 @@ session = get_session(engine)
 
 
 def save_filter_questions():
-    print("Start save filter questions")
+    print("Start save task questions")
 
     python_language_name = CrudEntityLanguage.get_entity_language("Python")
 
@@ -16,9 +16,9 @@ def save_filter_questions():
             "question_lvl_min": 1,
             "question_lvl_max": 10,
             "algorithm_name": "random",
-            # "entity_framework_id": None,
+            "entity_framework_id": None,
             "tasks_count": None,
-            "entity_language_id": python_language_name,
+            "entity_language_id": python_language_name.id,
         }
     ]
 
@@ -29,9 +29,9 @@ def save_filter_questions():
             question_lvl_min=filter_questions["question_lvl_min"],
             question_lvl_max=filter_questions["question_lvl_max"],
             algorithm_name=filter_questions["algorithm_name"],
-            # entity_framework_id=filter_questions["entity_framework_id"],
             tasks_count=filter_questions["tasks_count"],
-            entity_language_id=filter_questions["entity_language_id"].id,
+            entity_language_id=filter_questions["entity_language_id"],
+            entity_framework_id=filter_questions["entity_framework_id"],
         )
 
         # Добавляем запись
@@ -40,4 +40,4 @@ def save_filter_questions():
         # Благодаря этой строчке мы добавляем данные а таблицу
         session.commit()
 
-        print("Complete save filter questions")
+        print("Complete save task questions")
