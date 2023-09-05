@@ -23,6 +23,7 @@ class Questions(CreateMixin, BaseMixin, Base):
         nullable=False,
         comment="Programming language or language (english and etc.)",
     )
+    execution_time = Column(name="time", type_=SmallInteger, comment="Question time")
 
     def __repr__(self):
         return f"{self.id}"
