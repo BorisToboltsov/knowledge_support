@@ -28,4 +28,4 @@ def save_entity_language():
         # Благодаря этой строчке мы добавляем данные а таблицу
         session.commit()
 
-    print("Complete add entity language")
+    print("Complete add entity language\n")

@@ -20,8 +20,13 @@ class FilterQuestions(CreateMixin, BaseMixin, Base):
     )
     entity_language_id = Column(
         ForeignKey("entity_language.id", ondelete="NO ACTION"),
-        nullable=False,
+        nullable=True,
         comment="Programming language or language (english and etc.)",
+    )
+    entity_framework_id = Column(
+        ForeignKey("entity_frameworks.id", ondelete="NO ACTION"),
+        nullable=True,
+        comment="Programming framework (english and etc.)",
     )
     tasks_count = Column(
         name="tasks_count",
