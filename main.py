@@ -18,14 +18,14 @@ async def main():
     sentry_sdk.init(os.getenv("API_TOKEN_SENTRY"))
 
     # Configure logging
-    logging.basicConfig(level=logging.INFO)
+    logging.basicConfig(level=logging.WARNING)
 
-    # Регистрация роутеров
+    # Router register
     dp.include_router(router_commands)
     dp.include_router(router_message)
     dp.include_router(router_poll_answers)
 
-    # Запуск Long polling
+    # Start long polling
     await dp.start_polling(bot)
 
 

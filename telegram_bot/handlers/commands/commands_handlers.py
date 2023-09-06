@@ -15,9 +15,7 @@ router_commands = Router()
 @router_commands.message(Command("start"))
 async def commands_start(message: types.Message) -> NoReturn:
     main_menu = get_button_list(MAIN_MENU_TECH_LIST)
-    print(message.from_user.id)
-    print(message.from_user.username)
     await EntityMessage.send_message(
         message=message, message_text="Привет", keyboard=get_markup_keyboard(main_menu)
     )
-    start(message)
+    await start(message)

@@ -1,19 +1,42 @@
 from aiogram.types import Message
 
+from database.entity.crud.entity_language import CrudEntityLanguage
+from database.entity.model.entity_language import EntityLanguage
+from database.filter.crud.filter_questions import CrudFilterQuestions
+from database.filter.model.filter_questions import FilterQuestions
 from database.profile.model.account import Account
+from database.profile.model.profile import Profile
 
 
-async def _create_account(telegram_id: int, username: str, driver: str) -> Account:
-    account = Account.create(driver=driver, username=username, telegram_id=telegram_id)
+async def _create_account(telegram_id: int, driver: str) -> Account:
+    account = Account.create(driver=driver, driver_login=telegram_id)
     return account
 
 
-async def _create_profile():
-    pass
+async def _create_profile(
+    username: str,
+    interface_language: EntityLanguage,
+    account: Account,
+    filter_questions: FilterQuestions,
+) -> Profile:
+    profile = Profile.create(
+        username=username,
+        interface_language_id=interface_language.id,
+        account_id=account.id,
+        filter_questions_id=filter_questions.id,
+    )
+    return profile
 
 
 async def create_new_user(message: Message):
     account = await _create_account(
-        message.from_user.id, message.from_user.username, "telegram"
+        telegram_id=int(message.from_user.id), driver="telegram"
     )
-    await _create_profile()
+    filter_questions = CrudFilterQuestions.get_filter_questions("random")
+    interface_language = CrudEntityLanguage.get_entity_language("Russian")
+    await _create_profile(
+        username=message.from_user.username,
+        interface_language=interface_language,
+        account=account,
+        filter_questions=filter_questions,
+    )
