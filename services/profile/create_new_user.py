@@ -3,7 +3,7 @@ from aiogram.types import Message
 from database.entity_language.crud.entity_language import CrudEntityLanguage
 from database.entity_language.model.entity_language import EntityLanguage
 from database.filter.crud.filter_questions import CrudFilterQuestions
-from database.filter.model.filter_questions import FilterQuestions
+from database.filter.model.users_filter_questions import UsersFilterQuestions
 from database.profile.model.account import Account
 from database.profile.model.profile import Profile
 
@@ -17,7 +17,7 @@ async def _create_profile(
     username: str,
     interface_language: EntityLanguage,
     account: Account,
-    filter_questions: FilterQuestions,
+    filter_questions: UsersFilterQuestions,
 ) -> Profile:
     profile = Profile.create(
         username=username,

@@ -1,6 +1,6 @@
 from database.connect_db import engine, get_session
 from database.entity_language.crud.entity_language import CrudEntityLanguage
-from database.filter.model.filter_questions import FilterQuestions
+from database.filter.model.users_filter_questions import UsersFilterQuestions
 
 session = get_session(engine)
 
@@ -10,7 +10,7 @@ def save_filter_questions():
 
     python_language_name = CrudEntityLanguage.get_entity_language("Python")
 
-    filter_questions_list = [
+    users_filter_questions_list = [
         {
             "filter_name": "random",
             "question_lvl_min": 1,
@@ -22,16 +22,16 @@ def save_filter_questions():
         }
     ]
 
-    for filter_questions in filter_questions_list:
+    for user_filter_questions in users_filter_questions_list:
         # Создаем новую запись.
-        data = FilterQuestions(
-            filter_name=filter_questions["filter_name"],
-            question_lvl_min=filter_questions["question_lvl_min"],
-            question_lvl_max=filter_questions["question_lvl_max"],
-            algorithm_name=filter_questions["algorithm_name"],
-            tasks_count=filter_questions["tasks_count"],
-            entity_language_id=filter_questions["entity_language_id"],
-            entity_framework_id=filter_questions["entity_framework_id"],
+        data = UsersFilterQuestions(
+            filter_name=user_filter_questions["filter_name"],
+            question_lvl_min=user_filter_questions["question_lvl_min"],
+            question_lvl_max=user_filter_questions["question_lvl_max"],
+            algorithm_name=user_filter_questions["algorithm_name"],
+            tasks_count=user_filter_questions["tasks_count"],
+            entity_language_id=user_filter_questions["entity_language_id"],
+            entity_framework_id=user_filter_questions["entity_framework_id"],
         )
 
         # Добавляем запись

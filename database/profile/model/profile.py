@@ -19,8 +19,8 @@ class Profile(CreateMixin, BaseMixin, Base):
         ForeignKey("account.id", ondelete="NO ACTION"),
         nullable=False,
     )
-    filter_questions_id = Column(
-        ForeignKey("filter_questions.id", ondelete="NO ACTION"),
+    users_filter_questions_id = Column(
+        ForeignKey("users_filter_questions.id", ondelete="NO ACTION"),
         nullable=False,
     )
 
