@@ -14,7 +14,7 @@ class Questions(CreateMixin, BaseMixin, Base):
     multi_answer = Column(name="multi_answer", type_=Boolean, comment="Multi answer")
     execution_time = Column(name="time", type_=SmallInteger, comment="Question time")
     entity_framework_id = Column(
-        ForeignKey("entity_framework.id", ondelete="NO ACTION"),
+        ForeignKey("entity_frameworks.id", ondelete="NO ACTION"),
         nullable=True,
         comment="Framework",
     )

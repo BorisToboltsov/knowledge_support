@@ -1,4 +1,4 @@
-from sqlalchemy import BigInteger, Column, DateTime, ForeignKey
+from sqlalchemy import Column, ForeignKey, String
 
 from database.base.mixin.base_mixin import BaseMixin, CreateMixin
 from database.base.model.base import Base
@@ -8,10 +8,8 @@ class Profile(CreateMixin, BaseMixin, Base):
     __tablename__ = "profile"
     __tableargs__ = {"comment": "Profile"}
 
-    activity = Column(name="activity", type_=DateTime, comment="User activity")
-    answers_true = Column(name="answers_true", type_=BigInteger, comment="Answers true")
-    answers_false = Column(
-        name="answers_false", type_=BigInteger, comment="Answers False"
+    username = Column(
+        name="username", type_=String(100), comment="Telegram username, etc."
     )
     interface_language_id = Column(
         ForeignKey("entity_language.id", ondelete="NO ACTION"),
@@ -27,4 +25,4 @@ class Profile(CreateMixin, BaseMixin, Base):
     )
 
     def __repr__(self):
-        return f"{self.id}"
+        return f"{self.id} {self.username}"
