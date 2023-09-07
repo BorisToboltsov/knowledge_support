@@ -1,8 +1,8 @@
 from sqlalchemy import MetaData
 
-from database.entity.model.entity_event import EntityEvent
-from database.entity.model.entity_framework import EntityFrameworks
-from database.entity.model.entity_language import EntityLanguage
+from database.entity_language.model.entity_event import EntityEvent
+from database.entity_language.model.entity_framework import EntityFrameworks
+from database.entity_language.model.entity_language import EntityLanguage
 from database.entity_task.model.answer_text import AnswerText
 from database.entity_task.model.answers import Answers
 from database.entity_task.model.question_text import QuestionText

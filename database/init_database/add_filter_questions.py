@@ -1,5 +1,5 @@
 from database.connect_db import engine, get_session
-from database.entity.crud.entity_language import CrudEntityLanguage
+from database.entity_language.crud.entity_language import CrudEntityLanguage
 from database.filter.model.filter_questions import FilterQuestions
 
 session = get_session(engine)

@@ -1,6 +1,6 @@
 from database.connect_db import engine, get_session
-from database.entity.model.entity_framework import EntityFrameworks
-from database.entity.model.entity_language import EntityLanguage
+from database.entity_language.model.entity_framework import EntityFrameworks
+from database.entity_language.model.entity_language import EntityLanguage
 from database.entity_task.model.questions import Questions
 
 session = get_session(engine)
