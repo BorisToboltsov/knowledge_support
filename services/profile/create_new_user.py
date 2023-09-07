@@ -2,7 +2,7 @@ from aiogram.types import Message
 
 from database.entity_language.crud.entity_language import CrudEntityLanguage
 from database.entity_language.model.entity_language import EntityLanguage
-from database.filter.crud.filter_questions import CrudUsersFilterQuestions
+from database.filter.crud.users_filter_questions import CrudUsersFilterQuestions
 from database.filter.model.users_filter_questions import UsersFilterQuestions
 from database.profile.model.account import Account
 from database.profile.model.profile import Profile

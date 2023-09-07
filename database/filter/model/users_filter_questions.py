@@ -34,6 +34,7 @@ class UsersFilterQuestions(CreateMixin, BaseMixin, Base):
         comment="Number of tasks",
         nullable=True,
     )
+    # profile = relationship("Profile", backref='users_filter_questions')
 
     def __repr__(self):
         return f"{self.filter_name}"
