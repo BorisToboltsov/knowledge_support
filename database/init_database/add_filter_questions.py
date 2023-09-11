@@ -1,16 +1,16 @@
 from database.connect_db import engine, get_session
 from database.entity_language.crud.entity_language import CrudEntityLanguage
-from database.filter.model.users_filter_questions import UsersFilterQuestions
+from database.filter.model.template_filter_questions import TemplateFilterQuestions
 
 session = get_session(engine)
 
 
 def save_filter_questions():
-    print("Start save task questions")
+    print("Start save template filter")
 
     python_language_name = CrudEntityLanguage.get_entity_language("Python")
 
-    users_filter_questions_list = [
+    templates_filter_questions_list = [
         {
             "filter_name": "random",
             "question_lvl_min": 1,
@@ -22,16 +22,16 @@ def save_filter_questions():
         }
     ]
 
-    for user_filter_questions in users_filter_questions_list:
+    for template_filter_questions in templates_filter_questions_list:
         # Создаем новую запись.
-        data = UsersFilterQuestions(
-            filter_name=user_filter_questions["filter_name"],
-            question_lvl_min=user_filter_questions["question_lvl_min"],
-            question_lvl_max=user_filter_questions["question_lvl_max"],
-            algorithm_name=user_filter_questions["algorithm_name"],
-            tasks_count=user_filter_questions["tasks_count"],
-            entity_language_id=user_filter_questions["entity_language_id"],
-            entity_framework_id=user_filter_questions["entity_framework_id"],
+        data = TemplateFilterQuestions(
+            filter_name=template_filter_questions["filter_name"],
+            question_lvl_min=template_filter_questions["question_lvl_min"],
+            question_lvl_max=template_filter_questions["question_lvl_max"],
+            algorithm_name=template_filter_questions["algorithm_name"],
+            tasks_count=template_filter_questions["tasks_count"],
+            entity_language_id=template_filter_questions["entity_language_id"],
+            entity_framework_id=template_filter_questions["entity_framework_id"],
         )
 
         # Добавляем запись
@@ -40,4 +40,4 @@ def save_filter_questions():
         # Благодаря этой строчке мы добавляем данные а таблицу
         session.commit()
 
-        print("Complete save task questions")
+        print("Complete save template filter")

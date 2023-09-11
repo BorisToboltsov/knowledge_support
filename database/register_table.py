@@ -7,6 +7,7 @@ from database.entity_task.model.answer_text import AnswerText
 from database.entity_task.model.answers import Answers
 from database.entity_task.model.question_text import QuestionText
 from database.entity_task.model.questions import Questions
+from database.filter.model.template_filter_questions import TemplateFilterQuestions
 from database.filter.model.users_filter_questions import UsersFilterQuestions
 from database.profile.model.account import Account
 from database.profile.model.profile import Profile
@@ -43,3 +44,4 @@ Profile()
 ProfileAnswers()
 UsersFilterQuestions()
 EntityFrameworks()
+TemplateFilterQuestions()

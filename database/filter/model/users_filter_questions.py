@@ -1,14 +1,18 @@
 from sqlalchemy import Column, ForeignKey, SmallInteger, String
+from sqlalchemy.orm import relationship
 
 from database.base.mixin.base_mixin import BaseMixin, CreateMixin
 from database.base.model.base import Base
+from database.entity_language.model.entity_framework import EntityFrameworks
 
 
 class UsersFilterQuestions(CreateMixin, BaseMixin, Base):
     __tablename__ = "users_filter_questions"
     __tableargs__ = {"comment": "Users Filter Questions"}
 
-    filter_name = Column(name="filter_name", type_=String(20), comment="Filter name")
+    telegram_id = Column(
+        name="telegram_id", type_=String(20), comment="Telegram id", unique=True
+    )
     question_lvl_min = Column(
         name="question_lvl_min", type_=SmallInteger, comment="Question level minimum"
     )
@@ -34,7 +38,7 @@ class UsersFilterQuestions(CreateMixin, BaseMixin, Base):
         comment="Number of tasks",
         nullable=True,
     )
-    # profile = relationship("Profile", backref='users_filter_questions')
+    entity_framework = relationship(EntityFrameworks)
 
     def __repr__(self):
-        return f"{self.filter_name}"
+        return f"{self.telegram_id}"

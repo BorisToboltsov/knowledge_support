@@ -6,9 +6,9 @@ session = get_session(engine)
 
 class CrudUsersFilterQuestions:
     @staticmethod
-    def get_users_filter_questions(filter_name: str):
+    def get_user_filter_questions(telegram_id: int):
         return (
             session.query(UsersFilterQuestions)
-            .filter(UsersFilterQuestions.filter_name == filter_name)
+            .filter(UsersFilterQuestions.telegram_id == telegram_id)
             .one()
         )
