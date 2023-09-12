@@ -1,30 +1,33 @@
-# from aiogram.types import Message
+import random
+
+from database.entity_language.crud.entity_language import CrudEntityLanguage
+from database.entity_task.crud.question import CrudQuestions
+from database.entity_task.crud.question_text import CrudQuestionsText
+from database.filter.crud.users_filter_questions import CrudUsersFilterQuestions
 
 
 class Task:
-    def __init__(self, profile, user_filter):
-        self._user_filter = user_filter
-        self._question = self._get_question()
-        self._question_text = self._get_question_text(self._question)
-        self._answer = self._get_answer(self._question)
-        self._answer_text = self._get_answer_text(self._answer)
+    def __init__(self):
+        self.question_text: str
+        self.answers_list: list
+        self.allows_multiple_answers: bool
+        self.explanation: str
+        self.open_period: int
+        self.correct_option_id: int
+        self.types: str
+        self.protect_content: bool
 
-        self._language = profile.entity_language_id.entity_name
+    @staticmethod
+    def get_questions_list(
+        question_lvl_min: int, question_lvl_max: int, programming_language_id: int
+    ) -> list:
+        return CrudQuestions.get_question(
+            question_lvl_min, question_lvl_max, programming_language_id
+        )
 
-        self.question_text = "Мессенджер, автор которого Павел Дуров"
-        self.answers_list = ["Telegram", "Viber", "WhatsApp", "Messenger"]
-        self.allows_multiple_answers = False
-        self.explanation = "Тестds jfl;d skjfd lsfdsl fhadl; fjkghri oeghoirehg"
-        self.open_period = 60
-        self.correct_option_id = 1
-        self.types = "quiz"
-        self.protect_content = True
-
-    def _get_question(self):
-        pass
-
-    def _get_question_text(self, question):
-        pass
+    @staticmethod
+    def _get_question_text_list(question):
+        return CrudQuestionsText.get_questions_text(question)
 
     def _get_answer(self, question):
         pass
@@ -32,18 +35,27 @@ class Task:
     def _get_answer_text(self, answer):
         pass
 
-    def _task_formation(self, profile, user_filter):
-        question_text = "Мессенджер, автор которого Павел Дуров"
-        answers_list = ["Telegram", "Viber", "WhatsApp", "Messenger"]
-        allows_multiple_answers = False
-        explanation = "Тестds jfl;d skjfd lsfdsl fhadl; fjkghri oeghoirehg"
-        open_period = 60
-        correct_option_id = 1
-        types = "quiz"
-        protect_content = True
+    def get_task(self, telegram_id):
+        _user_filter = CrudUsersFilterQuestions.get_user_filter_questions(
+            int(telegram_id)
+        )
+        _language_interface = CrudEntityLanguage.get_user_language_interface(
+            int(telegram_id)
+        )
 
-    # def get_task(self):
-    #     pass
+        # TODO: Выбирать алгоритм отбора через показатель фильтра пользователя algorithm_name
+        _question = random.choice(
+            self._get_questions_list(
+                _user_filter.question_lvl_min,
+                _user_filter.question_lvl_max,
+                _user_filter.entity_language_id,
+            )
+        )
+
+        _question_text = self._get_question_text_list(_question)
+
+        _answer = self._get_answer(_question)
+        _answer_text = self._get_answer_text(_answer)
 
     def send_task(self):
         pass
