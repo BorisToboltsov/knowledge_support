@@ -1,4 +1,4 @@
-from sqlalchemy import Column, ForeignKey, SmallInteger, String
+from sqlalchemy import Column, ForeignKey, Integer, SmallInteger, String
 from sqlalchemy.orm import relationship
 
 from database.base.mixin.base_mixin import BaseMixin, CreateMixin
@@ -11,7 +11,7 @@ class UsersFilterQuestions(CreateMixin, BaseMixin, Base):
     __tableargs__ = {"comment": "Users Filter Questions"}
 
     telegram_id = Column(
-        name="telegram_id", type_=String(20), comment="Telegram id", unique=True
+        name="telegram_id", type_=Integer, comment="Telegram id", unique=True
     )
     question_lvl_min = Column(
         name="question_lvl_min", type_=SmallInteger, comment="Question level minimum"
