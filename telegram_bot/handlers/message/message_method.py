@@ -4,26 +4,18 @@ from services.task.task import Task
 from telegram_bot.utils.send_poll import EntityPoll
 
 
-def send_task(message: Message):
-    task = Task.get_task()
+async def send_task(message: Message):
+    task = Task
+    task.get_task(task, message.from_user.id)
 
-    # question_text = "Мессенджер, автор которого Павел Дуров"
-    # answers_list = ["Telegram", "Viber", "WhatsApp", "Messenger"]
-    # allows_multiple_answers = False
-    # explanation = "Тестds jfl;d skjfd lsfdsl fhadl; fjkghri oeghoirehg"
-    # open_period = 60
-    # correct_option_id = 1
-    # types = "quiz"
-    # protect_content = True
-
-    EntityPoll.send_poll(
+    await EntityPoll.send_poll(
         message,
-        question_text=question_text,
-        answers_list=answers_list,
-        allows_multiple_answers=allows_multiple_answers,
-        explanation=explanation,
-        open_period=open_period,
-        correct_option_id=correct_option_id,
-        types=types,
-        protect_content=protect_content,
+        question_text=task.question_text,
+        answers_list=task.answers_list,
+        allows_multiple_answers=task.allows_multiple_answers,
+        explanation=task.explanation,
+        open_period=task.open_period,
+        correct_option_id=task.correct_option_id,
+        types="quiz",
+        protect_content=True,
     )

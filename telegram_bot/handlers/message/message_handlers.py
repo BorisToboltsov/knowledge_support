@@ -4,7 +4,7 @@ from aiogram import F, Router
 from aiogram.fsm.context import FSMContext
 from aiogram.types import Message
 
-# from telegram_bot.handlers.message.message_method import task_formation
+from telegram_bot.handlers.message.message_method import send_task
 from telegram_bot.states.states import FSMTasks
 from telegram_bot.utils.send_message import EntityMessage
 
@@ -13,7 +13,7 @@ router_message = Router()
 
 @router_message.message(F.text == "Получить задачу")
 async def get_task(message: Message, state: FSMContext) -> NoReturn:
-    # await task_formation(message)
+    await send_task(message)
     await state.set_state(FSMTasks.waiting_for_answer.state)
 
 

@@ -7,7 +7,7 @@ session = get_session(engine)
 
 class CrudQuestionsText:
     @staticmethod
-    def get_questions_text(question: Questions) -> QuestionText:
+    def get_questions_text(question: Questions) -> list:
         return (
             session.query(QuestionText)
             .filter(QuestionText.question_id == question.id)
