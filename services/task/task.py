@@ -19,6 +19,7 @@ class Task:
         self.correct_option_id: int = 1
         self.types: str = ""
         self.protect_content: bool = True
+        self.path_image: str = ""
 
     @staticmethod
     def _get_questions_list(
@@ -89,6 +90,7 @@ class Task:
         self.explanation = question_text.explanation
         self.open_period = _question.execution_time
         self.correct_option_id = is_correct
+        self.path_image = question_text.path_image
 
     def send_task(self):
         pass

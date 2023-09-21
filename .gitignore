@@ -160,3 +160,4 @@ cython_debug/
 .idea/
 /database/alembic/versions/
 /database/init_database/fixtures/
+/static/
