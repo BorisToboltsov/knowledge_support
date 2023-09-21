@@ -16,7 +16,7 @@ class Task:
         self.allows_multiple_answers: bool = False
         self.explanation: str = ""
         self.open_period: int = 60
-        self.correct_option_id: int = 1
+        self.correct_option_id: int = 0
         self.types: str = ""
         self.protect_content: bool = True
         self.path_image: str = ""
@@ -75,8 +75,8 @@ class Task:
         _answers_list = self._get_answers_list(_question)
 
         answers = []
-        is_correct = 1
-        for i, _answer in enumerate(_answers_list, start=1):
+        is_correct = 0
+        for i, _answer in enumerate(_answers_list, start=0):
             _answer_text_list = self._get_answer_text_list(_answer)
             if _answer.is_correct is True:
                 is_correct = i
