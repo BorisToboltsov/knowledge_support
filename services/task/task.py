@@ -84,11 +84,12 @@ class Task:
                 if _answer_text.entity_language_id == _language_interface.id:
                     answers.append(_answer_text.answer_text)
 
+        SECONDS = 60
         self.question_text = question_text.question_text
         self.answers_list = answers
         self.allows_multiple_answers = _question.multi_answer
         self.explanation = question_text.explanation
-        self.open_period = _question.execution_time
+        self.open_period = _question.execution_time * SECONDS
         self.correct_option_id = is_correct
         self.path_image = question_text.path_image
 
