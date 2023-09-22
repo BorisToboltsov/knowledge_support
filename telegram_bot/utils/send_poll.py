@@ -32,7 +32,7 @@ class EntityPoll:
         :return:
         """
 
-        await bot.send_poll(
+        poll = await bot.send_poll(
             message.chat.id,
             question_text,
             answers_list,
@@ -44,3 +44,4 @@ class EntityPoll:
             open_period=open_period,
             protect_content=protect_content,
         )
+        return poll

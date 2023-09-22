@@ -1,5 +1,7 @@
 from aiogram.types import FSInputFile, Message
 
+from database.profile.crud.profile import CrudProfile
+from database.profile.crud.user_responses import ProfileAnswers
 from services.task.task import Task
 from telegram_bot.utils.send_message import EntityMessage
 from telegram_bot.utils.send_poll import EntityPoll
@@ -15,7 +17,7 @@ async def send_task(message: Message):
     if len(task.question_text) > 300:
         question_text = ""
         await EntityMessage.send_message(message, task.question_text)
-    await EntityPoll.send_poll(
+    poll = await EntityPoll.send_poll(
         message,
         question_text=question_text,
         answers_list=task.answers_list,
@@ -25,4 +27,8 @@ async def send_task(message: Message):
         correct_option_id=task.correct_option_id,
         types="quiz",
         protect_content=True,
+    )
+    profile = CrudProfile.get_profile(message.from_user.id)
+    ProfileAnswers.create(
+        poll_id=poll.poll.id, question_id=task.question_id, profile_id=profile.id
     )
