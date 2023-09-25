@@ -4,7 +4,7 @@ from aiogram import F, Router
 from aiogram.fsm.context import FSMContext
 from aiogram.types import Message
 
-from telegram_bot.handlers.message.message_method import send_task
+from telegram_bot.handlers.poll_answers.poll_answers_method import send_task
 from telegram_bot.states.states import FSMTasks
 from telegram_bot.utils.send_message import EntityMessage
 
