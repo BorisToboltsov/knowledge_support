@@ -4,6 +4,7 @@ from database.entity_task.crud.question import CrudQuestions
 from database.profile.crud.user_responses import session
 from services.profile.profile_answers import get_profile_answers
 from services.task.task import Task
+from view.task.answers import correct_answer, incorrect_answer
 
 router_poll_answers = Router()
 
@@ -21,6 +22,6 @@ async def poll_answers(message):
     session.commit()
 
     if user_answer_text == correct_answer_text:
-        print("Правильно")
+        await correct_answer(message)
     else:
-        print("Не правильно")
+        await incorrect_answer(message)
