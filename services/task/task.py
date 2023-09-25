@@ -13,7 +13,8 @@ from database.filter.crud.users_filter_questions import CrudUsersFilterQuestions
 
 @dataclass
 class QuestionData:
-    answers: list
+    answers_text_list: list
+    answers_list: list
     is_correct: int
     question_text: str
     explanation: str
@@ -23,7 +24,7 @@ class QuestionData:
 class Task:
     def __init__(self):
         self.question_text: str = ""
-        self.answers_list: list = []
+        self.answers_text_list: list = []
         self.allows_multiple_answers: bool = False
         self.explanation: str = ""
         self.open_period: int = 60
@@ -37,7 +38,7 @@ class Task:
     def _get_questions_list(
         question_lvl_min: int, question_lvl_max: int, programming_language_id: int
     ) -> list:
-        return CrudQuestions.get_question(
+        return CrudQuestions.get_question_custom(
             question_lvl_min, question_lvl_max, programming_language_id
         )
 
@@ -61,29 +62,32 @@ class Task:
     def answer_formation():
         pass
 
-    def get_question_data(
-        self, _question: Questions, language_interface_id: int
-    ) -> QuestionData:
+    def get_question_data(self, _question: Questions, telegram_id: str) -> QuestionData:
+        _language_interface = CrudEntityLanguage.get_user_language_interface(
+            int(telegram_id)
+        )
         _question_text_list = self._get_question_text_list(_question)
         question_text = None
         for _question_text in _question_text_list:
-            if _question_text.entity_language_id == language_interface_id:
+            if _question_text.entity_language_id == _language_interface.id:
                 question_text = _question_text
 
         _answers_list = self._get_answers_list(_question)
 
-        answers = []
+        answers_text_list = []
+        answers_list = []
         is_correct = 0
         for i, _answer in enumerate(_answers_list, start=0):
             _answer_text_list = self._get_answer_text_list(_answer)
             if _answer.is_correct is True:
                 is_correct = i
             for _answer_text in _answer_text_list:
-                if _answer_text.entity_language_id == language_interface_id:
-                    answers.append(_answer_text.answer_text)
-
+                if _answer_text.entity_language_id == _language_interface.id:
+                    answers_text_list.append(_answer_text.answer_text)
+                    answers_list.append(_answer)
         question_data = QuestionData(
-            answers=answers,
+            answers_text_list=answers_text_list,
+            answers_list=answers_list,
             is_correct=is_correct,
             question_text=question_text.question_text,
             explanation=question_text.explanation,
@@ -93,9 +97,6 @@ class Task:
 
     def get_task(self, telegram_id):
         _user_filter = CrudUsersFilterQuestions.get_user_filter_questions(
-            int(telegram_id)
-        )
-        _language_interface = CrudEntityLanguage.get_user_language_interface(
             int(telegram_id)
         )
 
@@ -108,11 +109,11 @@ class Task:
             )
         )
 
-        question_data = self.get_question_data(_question, _language_interface.id)
+        question_data = self.get_question_data(_question, telegram_id)
 
         SECONDS = 60
         self.question_text = question_data.question_text
-        self.answers_list = question_data.answers
+        self.answers_text_list = question_data.answers_text_list
         self.allows_multiple_answers = _question.multi_answer
         self.explanation = question_data.explanation
         self.open_period = _question.execution_time * SECONDS

@@ -19,7 +19,7 @@ async def send_task(message: Message):
     poll = await EntityPoll.send_poll(
         message,
         question_text=question_text,
-        answers_list=task.answers_list,
+        answers_text_list=task.answers_text_list,
         allows_multiple_answers=task.allows_multiple_answers,
         explanation=None,
         open_period=task.open_period,

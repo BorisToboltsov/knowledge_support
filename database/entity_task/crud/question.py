@@ -8,7 +8,7 @@ session = get_session(engine)
 
 class CrudQuestions:
     @staticmethod
-    def get_question(
+    def get_question_custom(
         question_level_min: int,
         question_level_max: int,
         entity_language_id: int,
@@ -24,3 +24,7 @@ class CrudQuestions:
             )
             .all()
         )
+
+    @staticmethod
+    def get_question_through_id(question_id: int) -> Questions:
+        return session.query(Questions).filter(Questions.id == question_id).one()

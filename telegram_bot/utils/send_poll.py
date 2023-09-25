@@ -10,7 +10,7 @@ class EntityPoll:
     async def send_poll(
         message: Message,
         question_text: str,
-        answers_list: list,
+        answers_text_list: list,
         types: str = None,
         correct_option_id: int = None,
         allows_multiple_answers: bool = None,
@@ -22,7 +22,7 @@ class EntityPoll:
 
         :param message: Message
         :param question_text: 1-300 characters
-        :param answers_list: 2-10 strings, 1-100 characters each
+        :param answers_text_list: 2-10 strings, 1-100 characters each
         :param types: quiz or regular, default regular
         :param correct_option_id: if types regular is used disabled
         :param allows_multiple_answers: True or False, if true types regular
@@ -35,7 +35,7 @@ class EntityPoll:
         poll = await bot.send_poll(
             message.chat.id,
             question_text,
-            answers_list,
+            answers_text_list,
             is_anonymous=False,
             allows_multiple_answers=allows_multiple_answers,
             type=types,
