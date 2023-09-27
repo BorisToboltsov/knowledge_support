@@ -13,7 +13,7 @@ async def create_profile_answers(
     return profile_answers
 
 
-async def get_profile_answers(telegram_id: str, poll_id: str) -> ProfileAnswers:
-    profile = CrudProfile.get_profile(int(telegram_id))
+async def get_profile_answers(telegram_id: int, poll_id: str) -> ProfileAnswers:
+    profile = CrudProfile.get_profile(telegram_id)
     profile_answers = CrudProfileAnswers.get_profile_answers(poll_id, profile.id)
     return profile_answers

@@ -62,9 +62,9 @@ class Task:
     def answer_formation():
         pass
 
-    def get_question_data(self, _question: Questions, telegram_id: str) -> QuestionData:
+    def get_question_data(self, _question: Questions, telegram_id: int) -> QuestionData:
         _language_interface = CrudEntityLanguage.get_user_language_interface(
-            int(telegram_id)
+            telegram_id
         )
         _question_text_list = self._get_question_text_list(_question)
         question_text = None
