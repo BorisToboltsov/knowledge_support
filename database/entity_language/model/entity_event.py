@@ -13,7 +13,7 @@ class EntityEvent(CreateMixin, BaseMixin, Base):
         name="questions_count", type_=SmallInteger, comment="Questions count"
     )
     filter_questions_id = Column(
-        ForeignKey("filter_questions.id", ondelete="NO ACTION"),
+        ForeignKey("users_filter_questions.id", ondelete="NO ACTION"),
         nullable=False,
     )
 

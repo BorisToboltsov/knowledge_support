@@ -35,3 +35,10 @@ class CreateMixin:
         session.add(obj)
         session.commit()
         return obj
+
+    @classmethod
+    def save(cls, **kwargs):
+        obj = cls(**kwargs)
+        session.add(obj)
+        session.commit()
+        return obj

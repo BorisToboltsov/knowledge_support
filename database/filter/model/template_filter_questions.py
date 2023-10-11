@@ -4,9 +4,9 @@ from database.base.mixin.base_mixin import BaseMixin, CreateMixin
 from database.base.model.base import Base
 
 
-class FilterQuestions(CreateMixin, BaseMixin, Base):
-    __tablename__ = "filter_questions"
-    __tableargs__ = {"comment": "Filter Questions"}
+class TemplateFilterQuestions(CreateMixin, BaseMixin, Base):
+    __tablename__ = "template_filter_questions"
+    __tableargs__ = {"comment": "Template Filter Questions"}
 
     filter_name = Column(name="filter_name", type_=String(20), comment="Filter name")
     question_lvl_min = Column(
