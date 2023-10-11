@@ -1,3 +1,5 @@
+import asyncio
+
 from aiogram import Router
 from aiogram.types import PollAnswer
 
@@ -5,9 +7,11 @@ from database.entity_task.crud.question import CrudQuestions
 from database.profile.crud.user_responses import session
 from services.profile.profile_answers import get_profile_answers
 from services.task.task import Task
-from view.task.answers import correct_answer, incorrect_answer
+from view.task.answers import correct_answer, incorrect_answer, not_answer
 
 router_poll_answers = Router()
+
+STATE_USERS = {}  # {telegram_id: {'answer_const': False}}
 
 
 @router_poll_answers.poll_answer()
@@ -25,6 +29,21 @@ async def poll_answers(poll_answer: PollAnswer):
     session.commit()
 
     if user_answer_text == correct_answer_text:
+        STATE_USERS[poll_answer.user.id]["answer_const"] = True
         await correct_answer(poll_answer)
     else:
+        STATE_USERS[poll_answer.user.id]["answer_const"] = True
         await incorrect_answer(poll_answer)
+
+
+async def no_answers(telegram_id: int, task: Task):
+    await asyncio.sleep(task.open_period + 1)
+    if telegram_id in STATE_USERS and STATE_USERS[telegram_id]["answer_const"] is False:
+        await not_answer(telegram_id)
+    else:
+        STATE_USERS[telegram_id]["answer_const"] = False
+
+
+def create_user_from_state(telegram_id: int):
+    if telegram_id not in STATE_USERS:
+        STATE_USERS[telegram_id] = {"answer_const": False}

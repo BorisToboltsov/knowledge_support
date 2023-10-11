@@ -18,6 +18,6 @@ class EntityMessage:
 
     @staticmethod
     async def send_message_from_user(
-        message: Message, message_text: str, keyboard=None
+        telegram_id: int, message_text: str, keyboard=None
     ) -> NoReturn:
-        await bot.send_message(message.user.id, message_text, reply_markup=keyboard)
+        await bot.send_message(telegram_id, message_text, reply_markup=keyboard)
