@@ -1,7 +1,9 @@
 from sqlalchemy import Column, ForeignKey, String
+from sqlalchemy.orm import relationship
 
 from database.base.mixin.base_mixin import BaseMixin, CreateMixin
 from database.base.model.base import Base
+from database.entity_language.model.entity_language import EntityLanguage
 
 
 class Profile(CreateMixin, BaseMixin, Base):
@@ -19,10 +21,11 @@ class Profile(CreateMixin, BaseMixin, Base):
         ForeignKey("account.id", ondelete="NO ACTION"),
         nullable=False,
     )
-    filter_questions_id = Column(
-        ForeignKey("filter_questions.id", ondelete="NO ACTION"),
+    users_filter_questions_id = Column(
+        ForeignKey("users_filter_questions.id", ondelete="NO ACTION"),
         nullable=False,
     )
+    interface_language = relationship(EntityLanguage)
 
     def __repr__(self):
         return f"{self.id} {self.username}"

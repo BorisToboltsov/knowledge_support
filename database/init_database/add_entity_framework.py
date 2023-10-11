@@ -1,12 +1,12 @@
 from database.connect_db import engine, get_session
-from database.entity.crud.entity_language import CrudEntityLanguage
-from database.entity.model.entity_framework import EntityFrameworks
+from database.entity_language.crud.entity_language import CrudEntityLanguage
+from database.entity_language.model.entity_framework import EntityFrameworks
 
 session = get_session(engine)
 
 
 def save_entity_framework():
-    print("Start add entity framework")
+    print("Start add entity_language framework")
 
     entity_framework_list = [
         "Django",
@@ -31,4 +31,4 @@ def save_entity_framework():
         # Благодаря этой строчке мы добавляем данные а таблицу
         session.commit()
 
-    print("Complete add entity framework\n")
+    print("Complete add entity_language framework\n")

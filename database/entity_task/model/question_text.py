@@ -36,4 +36,4 @@ class QuestionText(CreateMixin, BaseMixin, Base):
     )
 
     def __repr__(self):
-        return f"{self.question_text} {self.entity_language_id.entity_name}"
+        return f"{self.question_text}"

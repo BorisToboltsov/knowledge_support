@@ -6,5 +6,5 @@ session = get_session(engine)
 
 class CrudAccount:
     @staticmethod
-    def get_account(driver_login: int):
-        return session.query(Account).filter(Account.driver_login == driver_login).one()
+    def get_account(telegram_id: int):
+        return session.query(Account).filter(Account.driver_login == telegram_id).one()

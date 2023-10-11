@@ -1,5 +1,5 @@
 from database.connect_db import engine, get_session
-from database.entity.crud.entity_language import CrudEntityLanguage
+from database.entity_language.crud.entity_language import CrudEntityLanguage
 from database.entity_task.model.answer_text import AnswerText
 from database.entity_task.model.answers import Answers
 from database.entity_task.model.question_text import QuestionText
