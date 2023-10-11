@@ -4,10 +4,7 @@ from aiogram.types import FSInputFile, Message
 
 from services.profile.profile_answers import create_profile_answers
 from services.task.task import Task
-from telegram_bot.handlers.poll_answers.poll_answers_handlers import (
-    create_user_from_state,
-    no_answers,
-)
+from services.task.validation_answer import create_user_from_state, no_answers
 from telegram_bot.utils.send_message import EntityMessage
 from telegram_bot.utils.send_poll import EntityPoll
 
