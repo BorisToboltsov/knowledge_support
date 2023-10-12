@@ -1,5 +1,6 @@
 import asyncio
 
+from aiogram.fsm.context import FSMContext
 from aiogram.types import PollAnswer
 
 from database.entity_task.crud.question import CrudQuestions
@@ -11,7 +12,7 @@ from view.task.answers import correct_answer, incorrect_answer, not_answer
 STATE_USERS = {}  # {telegram_id: {'answer_const': False}}
 
 
-async def validation_answer(poll_answer: PollAnswer):
+async def validation_answer(poll_answer: PollAnswer, state: FSMContext):
     profile_answers = await get_profile_answers(
         poll_answer.user.id, poll_answer.poll_id
     )
@@ -27,17 +28,21 @@ async def validation_answer(poll_answer: PollAnswer):
     if user_answer_text == correct_answer_text:
         STATE_USERS[poll_answer.user.id]["answer_const"] = True
         await correct_answer(poll_answer)
+        await state.clear()
     else:
         STATE_USERS[poll_answer.user.id]["answer_const"] = True
         await incorrect_answer(poll_answer)
+        await state.clear()
 
 
-async def no_answers(telegram_id: int, task: Task):
+async def no_answers(telegram_id: int, task: Task, state: FSMContext) -> FSMContext:
     await asyncio.sleep(task.open_period + 1)
     if telegram_id in STATE_USERS and STATE_USERS[telegram_id]["answer_const"] is False:
         await not_answer(telegram_id)
+        await state.clear()
     else:
         STATE_USERS[telegram_id]["answer_const"] = False
+    return state
 
 
 def create_user_from_state(telegram_id: int):
