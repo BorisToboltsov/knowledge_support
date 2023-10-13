@@ -42,7 +42,6 @@ async def no_answers(telegram_id: int, task: Task, state: FSMContext) -> FSMCont
         await state.clear()
     else:
         STATE_USERS[telegram_id]["answer_const"] = False
-    return state
 
 
 def create_user_from_state(telegram_id: int):
