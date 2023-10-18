@@ -39,7 +39,7 @@ class Task:
         question_lvl_min: int, question_lvl_max: int, programming_language_id: int
     ) -> list:
         return CrudQuestions.get_question_custom(
-            question_lvl_min, question_lvl_max, programming_language_id
+            question_lvl_min, question_lvl_max, programming_language_id, True
         )
 
     @staticmethod
