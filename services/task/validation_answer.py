@@ -44,9 +44,8 @@ async def validation_answer(poll_answer: PollAnswer, state: FSMContext):
 
 async def no_answers(telegram_id: int, task: Task) -> NoReturn:
     await asyncio.sleep(task.open_period + 1)
-    if telegram_id in STATE_USERS and STATE_USERS[telegram_id]["answer_const"] is False:
-        await set_state_times_up(telegram_id, True)
-        await not_answer(telegram_id)
+    await set_state_times_up(telegram_id, True)
+    await not_answer(telegram_id)
 
 
 async def create_user_from_state(telegram_id: int):
