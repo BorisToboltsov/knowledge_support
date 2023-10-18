@@ -35,14 +35,18 @@ async def validation_answer(poll_answer: PollAnswer, state: FSMContext):
         await incorrect_answer(poll_answer)
         await state.clear()
 
+    #  Stop coroutine no_answers
+    tasks = asyncio.all_tasks()
+    for task1 in tasks:
+        if task1.get_coro().__str__().find("no_answers") != -1:
+            task1.get_coro().close()
+
 
 async def no_answers(telegram_id: int, task: Task) -> NoReturn:
     await asyncio.sleep(task.open_period + 1)
     if telegram_id in STATE_USERS and STATE_USERS[telegram_id]["answer_const"] is False:
         await set_state_times_up(telegram_id, True)
         await not_answer(telegram_id)
-    else:
-        STATE_USERS[telegram_id]["answer_const"] = False
 
 
 async def create_user_from_state(telegram_id: int):
