@@ -1,6 +1,7 @@
 from typing import NoReturn
 
 from aiogram import F, Router
+from aiogram.filters import Command
 from aiogram.fsm.context import FSMContext
 from aiogram.types import Message
 
@@ -13,7 +14,7 @@ router_message = Router()
 
 @router_message.message(F.text == "Получить задачу")
 async def get_task(message: Message, state: FSMContext) -> NoReturn:
-    await formation_task(message)
+    await formation_task(message, state)
     await state.set_state(FSMTasks.waiting_for_answer.state)
 
 
@@ -63,3 +64,20 @@ async def choosing_random_tasks(message: Message) -> NoReturn:
 @router_message.message(F.text == "Главное меню")
 async def get_main_menu(message: Message) -> NoReturn:
     await EntityMessage.send_message(message=message, message_text="Главное меню!")
+
+
+@router_message.message(Command("cancel"))
+@router_message.message(F.text.casefold() == "cancel")
+async def cancel_handler(message: Message, state: FSMContext) -> None:
+    """
+    Allow user to cancel any action
+    """
+    current_state = await state.get_state()
+    print(current_state)
+    if current_state is None:
+        return
+    await state.clear()
+    # await message.answer(
+    #     "Cancelled.",
+    #     reply_markup=ReplyKeyboardRemove(),
+    # )
