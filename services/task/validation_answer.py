@@ -1,5 +1,7 @@
 import asyncio
+from typing import NoReturn
 
+from aiogram.fsm.context import FSMContext
 from aiogram.types import PollAnswer
 
 from database.entity_task.crud.question import CrudQuestions
@@ -8,10 +10,10 @@ from services.profile.profile_answers import get_profile_answers
 from services.task.task import Task
 from view.task.answers import correct_answer, incorrect_answer, not_answer
 
-STATE_USERS = {}  # {telegram_id: {'answer_const': False}}
+STATE_USERS = {}  # {telegram_id: {'answer_const': False, 'times_up': True}}
 
 
-async def validation_answer(poll_answer: PollAnswer):
+async def validation_answer(poll_answer: PollAnswer, state: FSMContext):
     profile_answers = await get_profile_answers(
         poll_answer.user.id, poll_answer.poll_id
     )
@@ -27,19 +29,36 @@ async def validation_answer(poll_answer: PollAnswer):
     if user_answer_text == correct_answer_text:
         STATE_USERS[poll_answer.user.id]["answer_const"] = True
         await correct_answer(poll_answer)
+        await state.clear()
     else:
         STATE_USERS[poll_answer.user.id]["answer_const"] = True
         await incorrect_answer(poll_answer)
+        await state.clear()
+
+    #  Stop coroutine no_answers
+    tasks = asyncio.all_tasks()
+    for task1 in tasks:
+        if task1.get_coro().__str__().find("no_answers") != -1:
+            task1.get_coro().close()
 
 
-async def no_answers(telegram_id: int, task: Task):
+async def no_answers(telegram_id: int, task: Task) -> NoReturn:
     await asyncio.sleep(task.open_period + 1)
     if telegram_id in STATE_USERS and STATE_USERS[telegram_id]["answer_const"] is False:
+        await set_state_times_up(telegram_id, True)
         await not_answer(telegram_id)
-    else:
-        STATE_USERS[telegram_id]["answer_const"] = False
 
 
-def create_user_from_state(telegram_id: int):
+async def create_user_from_state(telegram_id: int):
     if telegram_id not in STATE_USERS:
-        STATE_USERS[telegram_id] = {"answer_const": False}
+        STATE_USERS[telegram_id] = {"answer_const": False, "times_up": False}
+
+
+async def set_state_times_up(telegram_id: int, times_up: bool):
+    if telegram_id in STATE_USERS:
+        STATE_USERS[telegram_id]["times_up"] = times_up
+
+
+async def get_state_times_up(telegram_id: int) -> bool:
+    if telegram_id in STATE_USERS:
+        return STATE_USERS[telegram_id]["times_up"]
