@@ -5,7 +5,12 @@ from aiogram.types import FSInputFile, Message
 
 from services.profile.profile_answers import create_profile_answers
 from services.task.task import Task
-from services.task.validation_answer import create_user_from_state, no_answers
+from services.task.validation_answer import (
+    create_user_from_state,
+    get_state_times_up,
+    no_answers,
+    set_state_times_up,
+)
 from telegram_bot.states.states import FSMTasks
 from telegram_bot.utils.send_message import EntityMessage
 from telegram_bot.utils.send_poll import EntityPoll
@@ -32,6 +37,9 @@ async def send_task_tech(
 
 
 async def formation_task(message: Message, state: FSMContext):
+    if await get_state_times_up(message.from_user.id) is True:
+        await set_state_times_up(message.from_user.id, False)
+        await state.clear()
     if await state.get_state() == "FSMTasks:waiting_for_answer":
         await task_exist(message.from_user.id)
     else:
@@ -46,9 +54,10 @@ async def formation_task(message: Message, state: FSMContext):
             question_text = ""
             await EntityMessage.send_message(message, task.question_text)
 
-        create_user_from_state(message.from_user.id)
-        state = await asyncio.gather(
-            no_answers(message.from_user.id, task, state),
+        await create_user_from_state(message.from_user.id)
+        await set_state_times_up(message.from_user.id, False)
+
+        await asyncio.gather(
+            no_answers(message.from_user.id, task),
             send_task_tech(message=message, question_text=question_text, task=task),
         )
-        await state.get_state()  # Если убрать, то после окончания таймера no_answers() состояние не сбрасываеся
