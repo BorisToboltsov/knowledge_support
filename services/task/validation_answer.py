@@ -8,7 +8,12 @@ from database.entity_task.crud.question import CrudQuestions
 from database.profile.crud.user_responses import session
 from services.profile.profile_answers import get_profile_answers
 from services.task.task import Task
-from view.task.answers import correct_answer, incorrect_answer, not_answer
+from view.task.answers import (
+    correct_answer,
+    incorrect_answer,
+    incorrect_multiple_answers,
+    not_answer,
+)
 
 STATE_USERS = {}  # {telegram_id: {'answer_const': False, 'times_up': True}}
 
@@ -34,8 +39,13 @@ async def validation_answer(poll_answer: PollAnswer, state: FSMContext):
         await state.clear()
     else:
         STATE_USERS[poll_answer.user.id]["answer_const"] = True
-        await incorrect_answer(poll_answer)
         await state.clear()
+        if question.multi_answer is True:
+            await incorrect_multiple_answers(
+                poll_answer, list(map(lambda x: x + 1, correct_answer_list))
+            )
+        else:
+            await incorrect_answer(poll_answer)
 
     #  Stop coroutine no_answers
     tasks = asyncio.all_tasks()
