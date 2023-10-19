@@ -30,7 +30,7 @@ async def send_task_tech(
         explanation=None,
         open_period=task.open_period,
         correct_option_id=task.correct_option_id,
-        types="quiz",
+        types="regular" if task.allows_multiple_answers is True else "quiz",
         protect_content=True,
     )
     await create_profile_answers(message.from_user.id, poll.poll.id, task.question_id)

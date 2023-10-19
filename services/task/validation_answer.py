@@ -19,14 +19,16 @@ async def validation_answer(poll_answer: PollAnswer, state: FSMContext):
     )
     question = CrudQuestions.get_question_through_id(profile_answers.question_id)
     question_data = Task.get_question_data(Task(), question, poll_answer.user.id)
-    correct_answer_text = question_data.answers_text_list[question_data.is_correct]
-    user_answer_text = question_data.answers_text_list[int(poll_answer.option_ids[0])]
+
+    correct_answer_list = question_data.is_correct_list
+    user_answer_list = poll_answer.option_ids
+
     user_answer = question_data.answers_list[int(poll_answer.option_ids[0])]
 
     profile_answers.answer_id = user_answer.id
     session.commit()
 
-    if user_answer_text == correct_answer_text:
+    if correct_answer_list == user_answer_list:
         STATE_USERS[poll_answer.user.id]["answer_const"] = True
         await correct_answer(poll_answer)
         await state.clear()
