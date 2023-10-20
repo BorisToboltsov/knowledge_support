@@ -30,7 +30,7 @@ async def send_task_tech(
         explanation=None,
         open_period=task.open_period,
         correct_option_id=task.correct_option_id,
-        types="quiz",
+        types="regular" if task.allows_multiple_answers is True else "quiz",
         protect_content=True,
     )
     await create_profile_answers(message.from_user.id, poll.poll.id, task.question_id)
@@ -46,18 +46,21 @@ async def formation_task(message: Message, state: FSMContext):
         await state.set_state(FSMTasks.waiting_for_answer.state)
         task = Task()
         task.get_task(message.from_user.id)
-        question_text = task.question_text
         if task.path_image:
             photo = FSInputFile(f"./static/{task.path_image}")
             await EntityMessage.send_photo(message, photo)
-        if len(task.question_text) > 300:
-            question_text = ""
-            await EntityMessage.send_message(message, task.question_text)
+
+        # question_text = task.question_text
+        # if len(task.question_text) > 300:
+        #     question_text = ""
+        #     await EntityMessage.send_message(message, task.question_text)
 
         await create_user_from_state(message.from_user.id)
         await set_state_times_up(message.from_user.id, False)
 
         await asyncio.gather(
             no_answers(message.from_user.id, task),
-            send_task_tech(message=message, question_text=question_text, task=task),
+            send_task_tech(
+                message=message, question_text=task.question_text, task=task
+            ),
         )

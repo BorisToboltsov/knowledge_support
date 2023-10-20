@@ -15,7 +15,7 @@ from database.filter.crud.users_filter_questions import CrudUsersFilterQuestions
 class QuestionData:
     answers_text_list: list
     answers_list: list
-    is_correct: int
+    is_correct_list: list
     question_text: str
     explanation: str
     path_image: str
@@ -39,7 +39,7 @@ class Task:
         question_lvl_min: int, question_lvl_max: int, programming_language_id: int
     ) -> list:
         return CrudQuestions.get_question_custom(
-            question_lvl_min, question_lvl_max, programming_language_id
+            question_lvl_min, question_lvl_max, programming_language_id, True
         )
 
     @staticmethod
@@ -76,11 +76,11 @@ class Task:
 
         answers_text_list = []
         answers_list = []
-        is_correct = 0
+        is_correct_list = []
         for i, _answer in enumerate(_answers_list, start=0):
             _answer_text_list = self._get_answer_text_list(_answer)
             if _answer.is_correct is True:
-                is_correct = i
+                is_correct_list.append(i)
             for _answer_text in _answer_text_list:
                 if _answer_text.entity_language_id == _language_interface.id:
                     answers_text_list.append(_answer_text.answer_text)
@@ -88,7 +88,7 @@ class Task:
         question_data = QuestionData(
             answers_text_list=answers_text_list,
             answers_list=answers_list,
-            is_correct=is_correct,
+            is_correct_list=is_correct_list,
             question_text=question_text.question_text,
             explanation=question_text.explanation,
             path_image=question_text.path_image,
@@ -110,14 +110,18 @@ class Task:
         )
 
         question_data = self.get_question_data(_question, telegram_id)
-
+        correct_option = (
+            question_data.is_correct_list[0]
+            if len(question_data.is_correct_list) == 1
+            else 0
+        )
         SECONDS = 60
         self.question_text = question_data.question_text
         self.answers_text_list = question_data.answers_text_list
         self.allows_multiple_answers = _question.multi_answer
         self.explanation = question_data.explanation
         self.open_period = _question.execution_time * SECONDS
-        self.correct_option_id = question_data.is_correct
+        self.correct_option_id = correct_option
         self.path_image = question_data.path_image
         self.question_id = _question.id
 

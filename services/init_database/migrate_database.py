@@ -4,7 +4,7 @@ from database.entity_task.model.answer_text import AnswerText
 from database.entity_task.model.answers import Answers
 from database.entity_task.model.question_text import QuestionText
 from database.entity_task.model.questions import Questions
-from database.init_database.merge_json import questions_answers
+from services.init_database.merge_json import questions_answers
 
 session = get_session(engine)
 

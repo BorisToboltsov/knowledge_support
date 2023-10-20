@@ -2,11 +2,11 @@ import json
 
 print("Start merge json")
 
-with open("database/init_database/fixtures/question.json", "r") as raw_questions:
+with open("static/init_database/fixtures/question.json", "r") as raw_questions:
     questions = json.load(raw_questions)
 
 
-with open("database/init_database/fixtures/answer.json", "r") as raw_answers:
+with open("static/init_database/fixtures/answer.json", "r") as raw_answers:
     answers = json.load(raw_answers)
 
 questions_answers = []
