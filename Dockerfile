@@ -1,4 +1,4 @@
-FROM python:latest
+FROM python:3.11
 LABEL authors="boristoboltsov"
 
 ENV TZ="Europe/Moscow"
