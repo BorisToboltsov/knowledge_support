@@ -1,7 +1,7 @@
 from aiogram.types import Message
 
 from database.entity_language.crud.entity_language import CrudEntityLanguage
-from database.entity_language.model.entity_language import EntityLanguage
+from database.entity_language.model.language import Language
 from database.filter.crud.template_filter_questions import CrudTemplateFilterQuestions
 from database.filter.model.users_filter_questions import UsersFilterQuestions
 from database.profile.model.account import Account
@@ -15,7 +15,7 @@ async def _create_account(telegram_id: int, driver: str) -> Account:
 
 async def _create_profile(
     username: str,
-    interface_language: EntityLanguage,
+    interface_language: Language,
     account: Account,
     users_filter_questions: UsersFilterQuestions,
 ) -> Profile:
@@ -43,8 +43,8 @@ async def create_new_user(message: Message):
         question_lvl_max=template_filter_random.question_lvl_max,
         algorithm_name=template_filter_random.algorithm_name,
         tasks_count=template_filter_random.tasks_count,
+        language_id=template_filter_random.language_id,
         entity_language_id=template_filter_random.entity_language_id,
-        entity_framework_id=template_filter_random.entity_framework_id,
     )
 
     await _create_profile(

@@ -18,13 +18,13 @@ class TemplateFilterQuestions(CreateMixin, BaseMixin, Base):
     algorithm_name = Column(
         name="algorithm_name", type_=String(50), comment="Algorithm name (method name)"
     )
-    entity_language_id = Column(
-        ForeignKey("entity_language.id", ondelete="NO ACTION"),
+    language_id = Column(
+        ForeignKey("language.id", ondelete="NO ACTION"),
         nullable=True,
         comment="Programming language or language (english and etc.)",
     )
-    entity_framework_id = Column(
-        ForeignKey("entity_frameworks.id", ondelete="NO ACTION"),
+    entity_language_id = Column(
+        ForeignKey("entity_language.id", ondelete="NO ACTION"),
         nullable=True,
         comment="Programming framework (english and etc.)",
     )

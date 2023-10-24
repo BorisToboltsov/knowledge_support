@@ -23,7 +23,7 @@ def save_question_answers():
             question_level=1,
             multi_answer=question_answer["question"]["multi_answer"],
             execution_time=question_answer["question"]["execution_time"],
-            entity_language_id=programming_language_name.id,
+            language_id=programming_language_name.id,
         )
 
         session.add(new_question)
@@ -34,14 +34,14 @@ def save_question_answers():
             question_text=question_answer["question"]["question_text"],
             explanation=question_answer["question"]["explanation"],
             path_image=question_answer["question"]["image"],
-            entity_language_id=russian_language_name.id,
+            language_id=russian_language_name.id,
         )
         new_question_text_en = QuestionText(
             question_id=new_question.id,
             question_text=question_answer["question"]["question_text_en"],
             explanation=question_answer["question"]["question_text_en"],
             path_image=question_answer["question"]["image"],
-            entity_language_id=english_language_name.id,
+            language_id=english_language_name.id,
         )
         session.add_all([new_question_text_ru, new_question_text_en])
 
@@ -57,12 +57,12 @@ def save_question_answers():
             new_answer_text_ru = AnswerText(
                 answer_id=new_answer.id,
                 answer_text=answer["answer"],
-                entity_language_id=russian_language_name.id,
+                language_id=russian_language_name.id,
             )
             new_answer_text_en = AnswerText(
                 answer_id=new_answer.id,
                 answer_text=answer["answer_en"],
-                entity_language_id=english_language_name.id,
+                language_id=english_language_name.id,
             )
 
             session.add_all([new_answer_text_ru, new_answer_text_en])

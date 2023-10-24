@@ -11,7 +11,7 @@ class CrudQuestions:
     def get_question_custom(
         question_level_min: int,
         question_level_max: int,
-        entity_language_id: int,
+        language_id: int,
         is_active: bool,
     ) -> list:
         return (
@@ -21,7 +21,7 @@ class CrudQuestions:
                     Questions.question_level <= question_level_max,
                     Questions.question_level >= question_level_min,
                 ),
-                Questions.entity_language_id == entity_language_id,
+                Questions.language_id == language_id,
                 Questions.is_active == is_active,
             )
             .all()

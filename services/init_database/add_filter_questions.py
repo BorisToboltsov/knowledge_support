@@ -16,9 +16,9 @@ def save_filter_questions():
             "question_lvl_min": 1,
             "question_lvl_max": 10,
             "algorithm_name": "random",
-            "entity_framework_id": None,
+            "entity_language_id": None,
             "tasks_count": None,
-            "entity_language_id": python_language_name.id,
+            "language_id": python_language_name.id,
         }
     ]
 
@@ -30,8 +30,8 @@ def save_filter_questions():
             question_lvl_max=template_filter_questions["question_lvl_max"],
             algorithm_name=template_filter_questions["algorithm_name"],
             tasks_count=template_filter_questions["tasks_count"],
+            language_id=template_filter_questions["language_id"],
             entity_language_id=template_filter_questions["entity_language_id"],
-            entity_framework_id=template_filter_questions["entity_framework_id"],
         )
 
         # Добавляем запись

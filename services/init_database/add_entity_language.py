@@ -1,5 +1,5 @@
 from database.connect_db import engine, get_session
-from database.entity_language.model.entity_language import EntityLanguage
+from database.entity_language.model.language import Language
 
 session = get_session(engine)
 
@@ -7,19 +7,20 @@ session = get_session(engine)
 def save_entity_language():
     print("Start add entity_language language")
 
-    entity_languages_list = [
+    languages_list = [
         "Python",
         "JavaScript",
         "Java",
         "English",
         "Russian",
         "Logical",
+        "Other",
     ]
 
-    for entity_language in entity_languages_list:
+    for language in languages_list:
         # Создаем новую запись.
-        data = EntityLanguage(
-            entity_name=entity_language,
+        data = Language(
+            entity_name=language,
         )
 
         # Добавляем запись

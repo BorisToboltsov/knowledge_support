@@ -69,7 +69,7 @@ class Task:
         _question_text_list = self._get_question_text_list(_question)
         question_text = None
         for _question_text in _question_text_list:
-            if _question_text.entity_language_id == _language_interface.id:
+            if _question_text.language_id == _language_interface.id:
                 question_text = _question_text
 
         _answers_list = self._get_answers_list(_question)
@@ -82,7 +82,7 @@ class Task:
             if _answer.is_correct is True:
                 is_correct_list.append(i)
             for _answer_text in _answer_text_list:
-                if _answer_text.entity_language_id == _language_interface.id:
+                if _answer_text.language_id == _language_interface.id:
                     answers_text_list.append(_answer_text.answer_text)
                     answers_list.append(_answer)
         question_data = QuestionData(
@@ -105,7 +105,7 @@ class Task:
             self._get_questions_list(
                 _user_filter.question_lvl_min,
                 _user_filter.question_lvl_max,
-                _user_filter.entity_language_id,
+                _user_filter.language_id,
             )
         )
 

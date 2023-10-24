@@ -1,6 +1,6 @@
 from database.connect_db import engine, get_session
 from database.entity_language.crud.entity_language import CrudEntityLanguage
-from database.entity_language.model.entity_framework import EntityFrameworks
+from database.entity_language.model.entity_language import EntityLanguage
 
 session = get_session(engine)
 
@@ -21,7 +21,7 @@ def save_entity_framework():
 
     for entity_framework in entity_framework_list:
         # Создаем новую запись.
-        data = EntityFrameworks(
+        data = EntityLanguage(
             entity_name=entity_framework,
         )
 
