@@ -1,8 +1,8 @@
 from sqlalchemy import MetaData
 
-from database.entity_language.model.entity_event import EntityEvent
-from database.entity_language.model.entity_framework import EntityFrameworks
 from database.entity_language.model.entity_language import EntityLanguage
+from database.entity_language.model.event import Event
+from database.entity_language.model.language import Language
 from database.entity_task.model.answer_text import AnswerText
 from database.entity_task.model.answers import Answers
 from database.entity_task.model.question_text import QuestionText
@@ -33,15 +33,15 @@ convention = {
 
 metadata = MetaData(naming_convention=convention)
 
-EntityLanguage()
+Language()
 AnswerText()
 QuestionText()
 Answers()
 Questions()
-EntityEvent()
+Event()
 Account()
 Profile()
 ProfileAnswers()
 UsersFilterQuestions()
-EntityFrameworks()
+EntityLanguage()
 TemplateFilterQuestions()

@@ -1,5 +1,5 @@
 from database.connect_db import engine, get_session
-from database.entity_language.crud.entity_language import CrudEntityLanguage
+from database.entity_language.crud.language import CrudLanguage
 from database.entity_task.model.answer_text import AnswerText
 from database.entity_task.model.answers import Answers
 from database.entity_task.model.question_text import QuestionText
@@ -13,17 +13,17 @@ def save_question_answers():
     print("Start migrate database")
 
     for question_answer in questions_answers:
-        programming_language_name = CrudEntityLanguage.get_entity_language(
+        programming_language_name = CrudLanguage.get_language(
             question_answer["question"]["programming_language"]
         )
-        english_language_name = CrudEntityLanguage.get_entity_language("English")
-        russian_language_name = CrudEntityLanguage.get_entity_language("Russian")
+        english_language_name = CrudLanguage.get_language("English")
+        russian_language_name = CrudLanguage.get_language("Russian")
 
         new_question = Questions(
             question_level=1,
             multi_answer=question_answer["question"]["multi_answer"],
             execution_time=question_answer["question"]["execution_time"],
-            entity_language_id=programming_language_name.id,
+            language_id=programming_language_name.id,
         )
 
         session.add(new_question)
@@ -34,14 +34,14 @@ def save_question_answers():
             question_text=question_answer["question"]["question_text"],
             explanation=question_answer["question"]["explanation"],
             path_image=question_answer["question"]["image"],
-            entity_language_id=russian_language_name.id,
+            language_id=russian_language_name.id,
         )
         new_question_text_en = QuestionText(
             question_id=new_question.id,
             question_text=question_answer["question"]["question_text_en"],
             explanation=question_answer["question"]["question_text_en"],
             path_image=question_answer["question"]["image"],
-            entity_language_id=english_language_name.id,
+            language_id=english_language_name.id,
         )
         session.add_all([new_question_text_ru, new_question_text_en])
 
@@ -57,12 +57,12 @@ def save_question_answers():
             new_answer_text_ru = AnswerText(
                 answer_id=new_answer.id,
                 answer_text=answer["answer"],
-                entity_language_id=russian_language_name.id,
+                language_id=russian_language_name.id,
             )
             new_answer_text_en = AnswerText(
                 answer_id=new_answer.id,
                 answer_text=answer["answer_en"],
-                entity_language_id=english_language_name.id,
+                language_id=english_language_name.id,
             )
 
             session.add_all([new_answer_text_ru, new_answer_text_en])

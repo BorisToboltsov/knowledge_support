@@ -3,7 +3,7 @@ from sqlalchemy.orm import relationship
 
 from database.base.mixin.base_mixin import BaseMixin, CreateMixin
 from database.base.model.base import Base
-from database.entity_language.model.entity_framework import EntityFrameworks
+from database.entity_language.model.entity_language import EntityLanguage
 
 
 class UsersFilterQuestions(CreateMixin, BaseMixin, Base):
@@ -22,13 +22,13 @@ class UsersFilterQuestions(CreateMixin, BaseMixin, Base):
     algorithm_name = Column(
         name="algorithm_name", type_=String(50), comment="Algorithm name (method name)"
     )
-    entity_language_id = Column(
-        ForeignKey("entity_language.id", ondelete="NO ACTION"),
+    language_id = Column(
+        ForeignKey("language.id", ondelete="NO ACTION"),
         nullable=True,
         comment="Programming language or language (english and etc.)",
     )
-    entity_framework_id = Column(
-        ForeignKey("entity_frameworks.id", ondelete="NO ACTION"),
+    entity_language_id = Column(
+        ForeignKey("entity_language.id", ondelete="NO ACTION"),
         nullable=True,
         comment="Programming framework (english and etc.)",
     )
@@ -38,7 +38,7 @@ class UsersFilterQuestions(CreateMixin, BaseMixin, Base):
         comment="Number of tasks",
         nullable=True,
     )
-    entity_framework = relationship(EntityFrameworks)
+    entity_language = relationship(EntityLanguage)
 
     def __repr__(self):
         return f"{self.telegram_id}"

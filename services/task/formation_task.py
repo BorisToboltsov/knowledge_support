@@ -5,12 +5,7 @@ from aiogram.types import FSInputFile, Message
 
 from services.profile.profile_answers import create_profile_answers
 from services.task.task import Task
-from services.task.validation_answer import (
-    create_user_from_state,
-    get_state_times_up,
-    no_answers,
-    set_state_times_up,
-)
+from services.task.validation_answer import no_answers, user_state
 from telegram_bot.states.states import FSMTasks
 from telegram_bot.utils.send_message import EntityMessage
 from telegram_bot.utils.send_poll import EntityPoll
@@ -37,8 +32,8 @@ async def send_task_tech(
 
 
 async def formation_task(message: Message, state: FSMContext):
-    if await get_state_times_up(message.from_user.id) is True:
-        await set_state_times_up(message.from_user.id, False)
+    if await user_state.get_state_times_up(message.from_user.id) is True:
+        await user_state.set_state_times_up(message.from_user.id, False)
         await state.clear()
     if await state.get_state() == "FSMTasks:waiting_for_answer":
         await task_exist(message.from_user.id)
@@ -55,8 +50,8 @@ async def formation_task(message: Message, state: FSMContext):
         #     question_text = ""
         #     await EntityMessage.send_message(message, task.question_text)
 
-        await create_user_from_state(message.from_user.id)
-        await set_state_times_up(message.from_user.id, False)
+        await user_state.create_user_from_state(message.from_user.id)
+        await user_state.set_state_times_up(message.from_user.id, False)
 
         await asyncio.gather(
             no_answers(message.from_user.id, task),

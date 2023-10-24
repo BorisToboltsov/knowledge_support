@@ -3,7 +3,7 @@ from sqlalchemy.orm import relationship
 
 from database.base.mixin.base_mixin import BaseMixin, CreateMixin
 from database.base.model.base import Base
-from database.entity_language.model.entity_language import EntityLanguage
+from database.entity_language.model.language import Language
 
 
 class Profile(CreateMixin, BaseMixin, Base):
@@ -14,7 +14,7 @@ class Profile(CreateMixin, BaseMixin, Base):
         name="username", type_=String(100), comment="Telegram username, etc."
     )
     interface_language_id = Column(
-        ForeignKey("entity_language.id", ondelete="NO ACTION"),
+        ForeignKey("language.id", ondelete="NO ACTION"),
         nullable=False,
     )
     account_id = Column(
@@ -25,7 +25,7 @@ class Profile(CreateMixin, BaseMixin, Base):
         ForeignKey("users_filter_questions.id", ondelete="NO ACTION"),
         nullable=False,
     )
-    interface_language = relationship(EntityLanguage)
+    interface_language = relationship(Language)
 
     def __repr__(self):
         return f"{self.id} {self.username}"
