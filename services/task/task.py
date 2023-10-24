@@ -1,7 +1,7 @@
 import random
 from dataclasses import dataclass
 
-from database.entity_language.crud.entity_language import CrudEntityLanguage
+from database.entity_language.crud.language import CrudLanguage
 from database.entity_task.crud.answer_text import CrudAnswerText
 from database.entity_task.crud.answers import CrudAnswers
 from database.entity_task.crud.question import CrudQuestions
@@ -63,9 +63,7 @@ class Task:
         pass
 
     def get_question_data(self, _question: Questions, telegram_id: int) -> QuestionData:
-        _language_interface = CrudEntityLanguage.get_user_language_interface(
-            telegram_id
-        )
+        _language_interface = CrudLanguage.get_user_language_interface(telegram_id)
         _question_text_list = self._get_question_text_list(_question)
         question_text = None
         for _question_text in _question_text_list:

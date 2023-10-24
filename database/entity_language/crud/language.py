@@ -6,9 +6,9 @@ from database.profile.model.profile import Profile
 session = get_session(engine)
 
 
-class CrudEntityLanguage:
+class CrudLanguage:
     @staticmethod
-    def get_entity_language(entity_name: str) -> Language:
+    def get_language(entity_name: str) -> Language:
         return session.query(Language).filter(Language.entity_name == entity_name).one()
 
     @staticmethod
