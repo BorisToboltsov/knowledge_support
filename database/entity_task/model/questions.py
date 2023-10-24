@@ -13,13 +13,13 @@ class Questions(CreateMixin, BaseMixin, Base):
     )
     multi_answer = Column(name="multi_answer", type_=Boolean, comment="Multi answer")
     execution_time = Column(name="time", type_=SmallInteger, comment="Question time")
-    entity_framework_id = Column(
-        ForeignKey("entity_frameworks.id", ondelete="NO ACTION"),
+    entity_language_id = Column(
+        ForeignKey("entity_language.id", ondelete="NO ACTION"),
         nullable=True,
         comment="Framework",
     )
-    entity_language_id = Column(
-        ForeignKey("entity_language.id", ondelete="NO ACTION"),
+    language_id = Column(
+        ForeignKey("language.id", ondelete="NO ACTION"),
         nullable=False,
         comment="Programming language or language (english and etc.)",
     )

@@ -30,8 +30,8 @@ class QuestionText(CreateMixin, BaseMixin, Base):
         ForeignKey("questions.id", ondelete="NO ACTION"),
         nullable=False,
     )
-    entity_language_id = Column(
-        ForeignKey("entity_language.id", ondelete="NO ACTION"),
+    language_id = Column(
+        ForeignKey("language.id", ondelete="NO ACTION"),
         nullable=False,
     )
 

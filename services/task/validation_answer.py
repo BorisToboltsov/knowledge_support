@@ -7,6 +7,7 @@ from aiogram.types import PollAnswer
 from database.entity_task.crud.question import CrudQuestions
 from database.profile.crud.user_responses import session
 from services.profile.profile_answers import get_profile_answers
+from services.task.state_user import StateUser
 from services.task.task import Task
 from view.task.answers import (
     correct_answer,
@@ -15,7 +16,7 @@ from view.task.answers import (
     not_answer,
 )
 
-STATE_USERS = {}  # {telegram_id: {'answer_const': False, 'times_up': True}}
+user_state = StateUser()
 
 
 async def validation_answer(poll_answer: PollAnswer, state: FSMContext):
@@ -34,11 +35,11 @@ async def validation_answer(poll_answer: PollAnswer, state: FSMContext):
     session.commit()
 
     if correct_answer_list == user_answer_list:
-        STATE_USERS[poll_answer.user.id]["answer_const"] = True
+        await user_state.set_state_answer_const(poll_answer.user.id, True)
         await correct_answer(poll_answer)
         await state.clear()
     else:
-        STATE_USERS[poll_answer.user.id]["answer_const"] = True
+        await user_state.set_state_answer_const(poll_answer.user.id, True)
         await state.clear()
         if question.multi_answer is True:
             await incorrect_multiple_answers(
@@ -56,20 +57,5 @@ async def validation_answer(poll_answer: PollAnswer, state: FSMContext):
 
 async def no_answers(telegram_id: int, task: Task) -> NoReturn:
     await asyncio.sleep(task.open_period + 1)
-    await set_state_times_up(telegram_id, True)
+    await user_state.set_state_times_up(telegram_id, True)
     await not_answer(telegram_id)
-
-
-async def create_user_from_state(telegram_id: int):
-    if telegram_id not in STATE_USERS:
-        STATE_USERS[telegram_id] = {"answer_const": False, "times_up": False}
-
-
-async def set_state_times_up(telegram_id: int, times_up: bool):
-    if telegram_id in STATE_USERS:
-        STATE_USERS[telegram_id]["times_up"] = times_up
-
-
-async def get_state_times_up(telegram_id: int) -> bool:
-    if telegram_id in STATE_USERS:
-        return STATE_USERS[telegram_id]["times_up"]

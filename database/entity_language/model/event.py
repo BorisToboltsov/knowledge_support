@@ -4,8 +4,8 @@ from database.base.mixin.base_mixin import BaseMixin, CreateMixin
 from database.base.model.base import Base
 
 
-class EntityEvent(CreateMixin, BaseMixin, Base):
-    __tablename__ = "entity_event"
+class Event(CreateMixin, BaseMixin, Base):
+    __tablename__ = "event"
     __tableargs__ = {"comment": "Entity Event"}
 
     entity_name = Column(name="entity_name", type_=String(100), comment="Entity name")

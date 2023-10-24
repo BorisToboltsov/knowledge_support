@@ -1,4 +1,4 @@
-from sqlalchemy import Column, String
+from sqlalchemy import Column, ForeignKey, String
 
 from database.base.mixin.base_mixin import BaseMixin, CreateMixin
 from database.base.model.base import Base
@@ -11,7 +11,12 @@ class EntityLanguage(CreateMixin, BaseMixin, Base):
     entity_name = Column(
         name="entity_name",
         type_=String(50),
-        comment="Python, JavaScript, Java, English, etc.",
+        comment="Django, Spring, Vue, etc.",
+    )
+    language_id = Column(
+        ForeignKey("language.id", ondelete="NO ACTION"),
+        nullable=True,
+        comment="Programming language or language (english and etc.)",
     )
 
     def __repr__(self):
