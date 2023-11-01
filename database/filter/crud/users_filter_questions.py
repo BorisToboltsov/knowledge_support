@@ -4,7 +4,7 @@ from database.filter.model.users_filter_questions import UsersFilterQuestions
 session = get_session(engine)
 
 
-class CrudUsersFilterQuestions:
+class DbUsersFilterQuestions:
     @staticmethod
     def get_user_filter_questions(telegram_id: int):
         return (

@@ -4,7 +4,7 @@ from database.filter.model.template_filter_questions import TemplateFilterQuesti
 session = get_session(engine)
 
 
-class CrudTemplateFilterQuestions:
+class DbTemplateFilterQuestions:
     @staticmethod
     def get_template_filter_questions(filter_name: str):
         return (

@@ -5,7 +5,7 @@ from database.profile.model.profile import Profile
 session = get_session(engine)
 
 
-class CrudProfile:
+class DbProfile:
     @staticmethod
     def get_profile(telegram_id: int) -> Profile:
         account = (

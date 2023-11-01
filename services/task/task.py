@@ -1,14 +1,14 @@
 import random
 from dataclasses import dataclass
 
-from database.entity_language.crud.language import CrudLanguage
-from database.entity_task.crud.answer_text import CrudAnswerText
-from database.entity_task.crud.answers import CrudAnswers
-from database.entity_task.crud.question import CrudQuestions
-from database.entity_task.crud.question_text import CrudQuestionsText
+from database.entity_language.crud.language import DbLanguage
+from database.entity_task.crud.answer_text import DbAnswerText
+from database.entity_task.crud.answers import DbAnswers
+from database.entity_task.crud.question import DbQuestions
+from database.entity_task.crud.question_text import DbQuestionsText
 from database.entity_task.model.answers import Answers
 from database.entity_task.model.questions import Questions
-from database.filter.crud.users_filter_questions import CrudUsersFilterQuestions
+from database.filter.crud.users_filter_questions import DbUsersFilterQuestions
 
 
 @dataclass
@@ -38,13 +38,13 @@ class Task:
     def _get_questions_list(
         question_lvl_min: int, question_lvl_max: int, programming_language_id: int
     ) -> list:
-        return CrudQuestions.get_question_custom(
+        return DbQuestions.get_question_custom(
             question_lvl_min, question_lvl_max, programming_language_id, True
         )
 
     @staticmethod
     def _get_question_text_list(question):
-        return CrudQuestionsText.get_questions_text(question)
+        return DbQuestionsText.get_questions_text(question)
 
     @staticmethod
     def question_formation():
@@ -52,18 +52,18 @@ class Task:
 
     @staticmethod
     def _get_answers_list(question):
-        return CrudAnswers.get_answers(question)
+        return DbAnswers.get_answers(question)
 
     @staticmethod
     def _get_answer_text_list(answer: Answers) -> list:
-        return CrudAnswerText.get_answer_text(answer)
+        return DbAnswerText.get_answer_text(answer)
 
     @staticmethod
     def answer_formation():
         pass
 
     def get_question_data(self, _question: Questions, telegram_id: int) -> QuestionData:
-        _language_interface = CrudLanguage.get_user_language_interface(telegram_id)
+        _language_interface = DbLanguage.get_user_language_interface(telegram_id)
         _question_text_list = self._get_question_text_list(_question)
         question_text = None
         for _question_text in _question_text_list:
@@ -94,7 +94,7 @@ class Task:
         return question_data
 
     def get_task(self, telegram_id):
-        _user_filter = CrudUsersFilterQuestions.get_user_filter_questions(
+        _user_filter = DbUsersFilterQuestions.get_user_filter_questions(
             int(telegram_id)
         )
 

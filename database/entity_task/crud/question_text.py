@@ -5,7 +5,7 @@ from database.entity_task.model.questions import Questions
 session = get_session(engine)
 
 
-class CrudQuestionsText:
+class DbQuestionsText:
     @staticmethod
     def get_questions_text(question: Questions) -> list:
         return (

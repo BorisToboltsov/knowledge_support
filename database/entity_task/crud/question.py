@@ -6,7 +6,7 @@ from database.entity_task.model.questions import Questions
 session = get_session(engine)
 
 
-class CrudQuestions:
+class DbQuestions:
     @staticmethod
     def get_question_custom(
         question_level_min: int,

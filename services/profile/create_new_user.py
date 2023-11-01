@@ -1,8 +1,8 @@
 from aiogram.types import Message
 
-from database.entity_language.crud.language import CrudLanguage
+from database.entity_language.crud.language import DbLanguage
 from database.entity_language.model.language import Language
-from database.filter.crud.template_filter_questions import CrudTemplateFilterQuestions
+from database.filter.crud.template_filter_questions import DbTemplateFilterQuestions
 from database.filter.model.users_filter_questions import UsersFilterQuestions
 from database.profile.model.account import Account
 from database.profile.model.profile import Profile
@@ -32,10 +32,10 @@ async def create_new_user(message: Message):
     account = await _create_account(
         telegram_id=int(message.from_user.id), driver="telegram"
     )
-    template_filter_random = CrudTemplateFilterQuestions.get_template_filter_questions(
+    template_filter_random = DbTemplateFilterQuestions.get_template_filter_questions(
         "random"
     )
-    interface_language = CrudLanguage.get_language("Russian")
+    interface_language = DbLanguage.get_language("Russian")
 
     data = UsersFilterQuestions.create(
         telegram_id=account.driver_login,

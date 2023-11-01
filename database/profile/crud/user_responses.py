@@ -4,7 +4,7 @@ from database.profile.model.user_responses import ProfileAnswers
 session = get_session(engine)
 
 
-class CrudProfileAnswers:
+class DbProfileAnswers:
     @staticmethod
     def get_profile_answers(poll_id: str, profile_id: int) -> ProfileAnswers:
         profile_answers = (

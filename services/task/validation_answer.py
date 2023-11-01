@@ -4,7 +4,7 @@ from typing import NoReturn
 from aiogram.fsm.context import FSMContext
 from aiogram.types import PollAnswer
 
-from database.entity_task.crud.question import CrudQuestions
+from database.entity_task.crud.question import DbQuestions
 from database.profile.crud.user_responses import session
 from services.profile.profile_answers import get_profile_answers
 from services.task.state_user import StateUser
@@ -23,7 +23,7 @@ async def validation_answer(poll_answer: PollAnswer, state: FSMContext):
     profile_answers = await get_profile_answers(
         poll_answer.user.id, poll_answer.poll_id
     )
-    question = CrudQuestions.get_question_through_id(profile_answers.question_id)
+    question = DbQuestions.get_question_through_id(profile_answers.question_id)
     question_data = Task.get_question_data(Task(), question, poll_answer.user.id)
 
     correct_answer_list = question_data.is_correct_list
