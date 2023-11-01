@@ -47,20 +47,12 @@ class Task:
         return DbQuestionsText.get_questions_text(question)
 
     @staticmethod
-    def question_formation():
-        pass
-
-    @staticmethod
     def _get_answers_list(question):
         return DbAnswers.get_answers(question)
 
     @staticmethod
     def _get_answer_text_list(answer: Answers) -> list:
         return DbAnswerText.get_answer_text(answer)
-
-    @staticmethod
-    def answer_formation():
-        pass
 
     def get_question_data(self, _question: Questions, telegram_id: int) -> QuestionData:
         _language_interface = DbLanguage.get_user_language_interface(telegram_id)
@@ -122,6 +114,3 @@ class Task:
         self.correct_option_id = correct_option
         self.path_image = question_data.path_image
         self.question_id = _question.id
-
-    def send_task(self):
-        pass
