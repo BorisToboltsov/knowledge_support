@@ -40,4 +40,4 @@ def save_filter_questions():
         # Благодаря этой строчке мы добавляем данные а таблицу
         session.commit()
 
-        print("Complete save template filter")
+        print("Complete save template filter\n")
