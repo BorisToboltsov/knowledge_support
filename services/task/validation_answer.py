@@ -5,8 +5,8 @@ from aiogram.fsm.context import FSMContext
 from aiogram.types import PollAnswer
 
 from database.entity_task.crud.question import DbQuestions
-from database.profile.crud.user_responses import session
-from services.profile.profile_answers import get_profile_answers
+from database.profile.crud.profile import DbProfile
+from database.profile.crud.user_responses import DbProfileAnswers, session
 from services.task.state_user import StateUser
 from services.task.task import Task
 from view.task.answers import (
@@ -20,9 +20,11 @@ user_state = StateUser()
 
 
 async def validation_answer(poll_answer: PollAnswer, state: FSMContext):
-    profile_answers = await get_profile_answers(
-        poll_answer.user.id, poll_answer.poll_id
+    profile = DbProfile.get_profile(poll_answer.user.id)
+    profile_answers = DbProfileAnswers.get_profile_answers(
+        poll_answer.poll_id, profile.id
     )
+
     question = DbQuestions.get_question_through_id(profile_answers.question_id)
     question_data = Task.get_question_data(Task(), question, poll_answer.user.id)
 
