@@ -1,10 +1,10 @@
 from sqlalchemy import Column, ForeignKey, String
 
-from database.base.mixin.base_mixin import BaseMixin, CreateMixin
+from database.base.mixin.base_mixin import BaseMixin, CreateMixin, SaveMixin
 from database.base.model.base import Base
 
 
-class EntityLanguage(CreateMixin, BaseMixin, Base):
+class EntityLanguage(CreateMixin, SaveMixin, BaseMixin, Base):
     __tablename__ = "entity_language"
     __tableargs__ = {"comment": "Entity Language"}
 

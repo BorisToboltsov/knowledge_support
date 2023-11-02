@@ -1,10 +1,10 @@
 from sqlalchemy import Column, ForeignKey, String
 
-from database.base.mixin.base_mixin import BaseMixin, CreateMixin
+from database.base.mixin.base_mixin import BaseMixin, CreateMixin, SaveMixin
 from database.base.model.base import Base
 
 
-class ProfileAnswers(CreateMixin, BaseMixin, Base):
+class ProfileAnswers(CreateMixin, SaveMixin, BaseMixin, Base):
     __tablename__ = "profile_answers"
     __tableargs__ = {"comment": "User responses"}
 

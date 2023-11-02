@@ -1,10 +1,10 @@
 from sqlalchemy import Column, String
 
-from database.base.mixin.base_mixin import BaseMixin, CreateMixin
+from database.base.mixin.base_mixin import BaseMixin, CreateMixin, SaveMixin
 from database.base.model.base import Base
 
 
-class Language(CreateMixin, BaseMixin, Base):
+class Language(CreateMixin, SaveMixin, BaseMixin, Base):
     __tablename__ = "language"
     __tableargs__ = {"comment": "Language"}
 
