@@ -40,7 +40,7 @@ async def formation_task(telegram_id: int, state: FSMContext):
     else:
         await state.set_state(FSMTasks.waiting_for_answer.state)
         task = Task()
-        task.get_task(telegram_id)
+        task.get_user_task(telegram_id)
         if task.path_image:
             photo = FSInputFile(f"./static/{task.path_image}")
             await EntityMessage.send_photo(telegram_id, photo)

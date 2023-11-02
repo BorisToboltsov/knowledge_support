@@ -85,7 +85,7 @@ class Task:
         )
         return question_data
 
-    def get_task(self, telegram_id):
+    def get_user_task(self, telegram_id):
         _user_filter = DbUsersFilterQuestions.get_user_filter_questions(
             int(telegram_id)
         )
