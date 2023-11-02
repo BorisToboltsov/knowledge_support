@@ -44,12 +44,6 @@ async def formation_task(message: Message, state: FSMContext):
         if task.path_image:
             photo = FSInputFile(f"./static/{task.path_image}")
             await EntityMessage.send_photo(message, photo)
-
-        # question_text = task.question_text
-        # if len(task.question_text) > 300:
-        #     question_text = ""
-        #     await EntityMessage.send_message(message, task.question_text)
-
         await user_state.create_user_from_state(message.from_user.id)
         await user_state.set_state_times_up(message.from_user.id, False)
 
