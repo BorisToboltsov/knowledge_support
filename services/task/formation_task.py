@@ -13,7 +13,7 @@ from view.task.task import task_exist
 
 
 async def send_task_tech(
-    telegram_id,
+    telegram_id: int,
     question_text: str,
     task: Task,
 ):
