@@ -17,7 +17,7 @@ router_message = Router()
 
 @router_message.message(F.text == "Получить задачу")
 async def get_task(message: Message, state: FSMContext) -> NoReturn:
-    await formation_task(message, state)
+    await formation_task(message.from_user.id, state)
     await state.set_state(FSMTasks.waiting_for_answer.state)
 
 
