@@ -5,8 +5,8 @@ from aiogram.fsm.context import FSMContext
 from aiogram.types import FSInputFile
 
 from services.profile.profile_answers import ServiceProfileAnswers
+from services.task.forming_response import user_state
 from services.task.task import Task
-from services.task.validation_answer import user_state
 from telegram_bot.states.states import FSMTasks
 from telegram_bot.utils.send_message import EntityMessage
 from telegram_bot.utils.send_poll import EntityPoll

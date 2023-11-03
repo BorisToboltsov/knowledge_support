@@ -17,7 +17,7 @@ from view.task.answers import (
 user_state = StateUser()
 
 
-class ValidationAnswers:
+class FormingResponse:
     def __init__(self, poll_answer: PollAnswer, state: FSMContext):
         self.poll_answer = poll_answer
         self.state = state
