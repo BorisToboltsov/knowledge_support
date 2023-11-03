@@ -2,7 +2,7 @@ class StateUser:
     def __init__(self):
         self._state_user = (
             {}
-        )  # {telegram_id: {'answer_const': False, 'times_up': True}}
+        )  # ({telegram_id: {'answer_const': False, 'times_up': True}})
 
     async def create_user_from_state(self, telegram_id: int):
         if telegram_id not in self._state_user:
