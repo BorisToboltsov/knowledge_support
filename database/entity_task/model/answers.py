@@ -1,11 +1,11 @@
 from sqlalchemy import Boolean, Column, ForeignKey
 from sqlalchemy.orm import relationship
 
-from database.base.mixin.base_mixin import BaseMixin, CreateMixin
+from database.base.mixin.base_mixin import BaseMixin, CreateMixin, SaveMixin
 from database.base.model.base import Base
 
 
-class Answers(CreateMixin, BaseMixin, Base):
+class Answers(CreateMixin, SaveMixin, BaseMixin, Base):
     __tablename__ = "answers"
     __tableargs__ = {"comment": "Answers"}
 

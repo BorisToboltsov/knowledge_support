@@ -5,7 +5,7 @@ from database.entity_task.model.questions import Questions
 session = get_session(engine)
 
 
-class CrudAnswers:
+class DbAnswers:
     @staticmethod
     def get_answers(question: Questions) -> list:
         return session.query(Answers).filter(Answers.question_id == question.id).all()

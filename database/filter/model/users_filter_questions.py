@@ -1,12 +1,12 @@
 from sqlalchemy import Column, ForeignKey, Integer, SmallInteger, String
 from sqlalchemy.orm import relationship
 
-from database.base.mixin.base_mixin import BaseMixin, CreateMixin
+from database.base.mixin.base_mixin import BaseMixin, CreateMixin, SaveMixin
 from database.base.model.base import Base
 from database.entity_language.model.entity_language import EntityLanguage
 
 
-class UsersFilterQuestions(CreateMixin, BaseMixin, Base):
+class UsersFilterQuestions(CreateMixin, SaveMixin, BaseMixin, Base):
     __tablename__ = "users_filter_questions"
     __tableargs__ = {"comment": "Users Filter Questions"}
 

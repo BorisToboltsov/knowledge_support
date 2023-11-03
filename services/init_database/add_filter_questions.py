@@ -1,5 +1,5 @@
 from database.connect_db import engine, get_session
-from database.entity_language.crud.language import CrudLanguage
+from database.entity_language.crud.language import DbLanguage
 from database.filter.model.template_filter_questions import TemplateFilterQuestions
 
 session = get_session(engine)
@@ -8,7 +8,7 @@ session = get_session(engine)
 def save_filter_questions():
     print("Start save template filter")
 
-    python_language_name = CrudLanguage.get_language("Python")
+    python_language_name = DbLanguage.get_language("Python")
 
     templates_filter_questions_list = [
         {
@@ -40,4 +40,4 @@ def save_filter_questions():
         # Благодаря этой строчке мы добавляем данные а таблицу
         session.commit()
 
-        print("Complete save template filter")
+        print("Complete save template filter\n")

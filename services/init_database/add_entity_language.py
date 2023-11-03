@@ -1,5 +1,5 @@
 from database.connect_db import engine, get_session
-from database.entity_language.crud.language import CrudLanguage
+from database.entity_language.crud.language import DbLanguage
 from database.entity_language.model.entity_language import EntityLanguage
 
 session = get_session(engine)
@@ -17,7 +17,7 @@ def save_entity_language():
         "PyQT",
     ]
 
-    python_language_name = CrudLanguage.get_language("Python")
+    python_language_name = DbLanguage.get_language("Python")
 
     for entity_language in entity_language_list:
         # Создаем новую запись.
