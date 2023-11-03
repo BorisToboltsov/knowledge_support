@@ -1,5 +1,4 @@
 import asyncio
-from typing import NoReturn
 
 from aiogram.fsm.context import FSMContext
 from aiogram.types import PollAnswer
@@ -13,7 +12,6 @@ from view.task.answers import (
     correct_answer,
     incorrect_answer,
     incorrect_multiple_answers,
-    not_answer,
 )
 
 user_state = StateUser()
@@ -52,12 +50,6 @@ async def validation_answer(poll_answer: PollAnswer, state: FSMContext):
 
     #  Stop coroutine no_answers
     tasks = asyncio.all_tasks()
-    for task1 in tasks:
-        if task1.get_coro().__str__().find("no_answers") != -1:
-            task1.get_coro().close()
-
-
-async def no_answers(telegram_id: int, task: Task) -> NoReturn:
-    await asyncio.sleep(task.open_period + 1)
-    await user_state.set_state_times_up(telegram_id, True)
-    await not_answer(telegram_id)
+    for task in tasks:
+        if task.get_coro().__str__().find("no_answers") != -1:
+            task.get_coro().close()
