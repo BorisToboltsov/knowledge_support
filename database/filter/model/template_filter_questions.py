@@ -1,10 +1,10 @@
 from sqlalchemy import Column, ForeignKey, SmallInteger, String
 
-from database.base.mixin.base_mixin import BaseMixin, CreateMixin
+from database.base.mixin.base_mixin import BaseMixin, CreateMixin, SaveMixin
 from database.base.model.base import Base
 
 
-class TemplateFilterQuestions(CreateMixin, BaseMixin, Base):
+class TemplateFilterQuestions(CreateMixin, SaveMixin, BaseMixin, Base):
     __tablename__ = "template_filter_questions"
     __tableargs__ = {"comment": "Template Filter Questions"}
 

@@ -1,14 +1,12 @@
 from typing import NoReturn
 
-from aiogram.types import Message
-
 from telegram_bot.connect import bot
 
 
 class EntityPoll:
     @staticmethod
     async def send_poll(
-        message: Message,
+        telegram_id: int,
         question_text: str,
         answers_text_list: list,
         types: str = None,
@@ -20,7 +18,7 @@ class EntityPoll:
     ) -> NoReturn:
         """
 
-        :param message: Message
+        :param telegram_id:
         :param question_text: 1-300 characters
         :param answers_text_list: 2-10 strings, 1-100 characters each
         :param types: quiz or regular, default regular
@@ -33,7 +31,7 @@ class EntityPoll:
         """
 
         poll = await bot.send_poll(
-            message.chat.id,
+            telegram_id,
             question_text,
             answers_text_list,
             is_anonymous=False,

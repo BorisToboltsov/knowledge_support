@@ -1,12 +1,12 @@
 from sqlalchemy import Column, ForeignKey, String
 from sqlalchemy.orm import relationship
 
-from database.base.mixin.base_mixin import BaseMixin, CreateMixin
+from database.base.mixin.base_mixin import BaseMixin, CreateMixin, SaveMixin
 from database.base.model.base import Base
 from database.entity_language.model.language import Language
 
 
-class Profile(CreateMixin, BaseMixin, Base):
+class Profile(CreateMixin, SaveMixin, BaseMixin, Base):
     __tablename__ = "profile"
     __tableargs__ = {"comment": "Profile"}
 

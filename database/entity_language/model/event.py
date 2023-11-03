@@ -1,10 +1,10 @@
 from sqlalchemy import Column, ForeignKey, SmallInteger, String
 
-from database.base.mixin.base_mixin import BaseMixin, CreateMixin
+from database.base.mixin.base_mixin import BaseMixin, CreateMixin, SaveMixin
 from database.base.model.base import Base
 
 
-class Event(CreateMixin, BaseMixin, Base):
+class Event(CreateMixin, SaveMixin, BaseMixin, Base):
     __tablename__ = "event"
     __tableargs__ = {"comment": "Entity Event"}
 

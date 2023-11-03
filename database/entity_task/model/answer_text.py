@@ -1,10 +1,10 @@
 from sqlalchemy import Column, ForeignKey, Text
 
-from database.base.mixin.base_mixin import BaseMixin, CreateMixin
+from database.base.mixin.base_mixin import BaseMixin, CreateMixin, SaveMixin
 from database.base.model.base import Base
 
 
-class AnswerText(CreateMixin, BaseMixin, Base):
+class AnswerText(CreateMixin, SaveMixin, BaseMixin, Base):
     __tablename__ = "answer_text"
     __tableargs__ = {"comment": "Answer text"}
 
