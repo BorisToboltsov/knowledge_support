@@ -5,7 +5,7 @@ from aiogram.filters import Command
 from aiogram.fsm.context import FSMContext
 from aiogram.types import Message
 
-from services.task.formation_task import formation_task
+from services.task.preparing_for_shipment import preparing_for_shipment
 from telegram_bot.keyboard.get_button_list import get_button_list
 from telegram_bot.keyboard.markup_menu_list import MAIN_MENU_TECH_LIST
 from telegram_bot.states.states import FSMTasks
@@ -17,7 +17,7 @@ router_message = Router()
 
 @router_message.message(F.text == "Получить задачу")
 async def get_task(message: Message, state: FSMContext) -> NoReturn:
-    await formation_task(message.from_user.id, state)
+    await preparing_for_shipment(message.from_user.id, state)
     await state.set_state(FSMTasks.waiting_for_answer.state)
 
 
