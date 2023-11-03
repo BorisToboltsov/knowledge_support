@@ -4,7 +4,7 @@ from typing import NoReturn
 from aiogram.fsm.context import FSMContext
 from aiogram.types import FSInputFile
 
-from services.profile.profile_answers import create_profile_answers
+from services.profile.profile_answers import ServiceProfileAnswers
 from services.task.task import Task
 from services.task.validation_answer import user_state
 from telegram_bot.states.states import FSMTasks
@@ -39,9 +39,10 @@ class SendTaskTech:
         )
 
     async def create_profile_answer(self):
-        await create_profile_answers(
-            self.telegram_id, self.poll.poll.id, self.task.question_id
+        service_profile_answers = ServiceProfileAnswers(
+            self.telegram_id, self.poll.poll.id
         )
+        await service_profile_answers.create_profile_answers(self.task.question_id)
 
     async def send_task_tech(self):
         await self.send_image_if_exists()

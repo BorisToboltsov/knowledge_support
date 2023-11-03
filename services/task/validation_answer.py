@@ -4,8 +4,8 @@ from aiogram.fsm.context import FSMContext
 from aiogram.types import PollAnswer
 
 from database.entity_task.crud.question import DbQuestions
-from database.profile.crud.profile import DbProfile
-from database.profile.crud.user_responses import DbProfileAnswers, session
+from database.profile.crud.user_responses import session
+from services.profile.profile_answers import ServiceProfileAnswers
 from services.task.state_user import StateUser
 from services.task.task import Task
 from view.task.answers import (
@@ -18,22 +18,28 @@ user_state = StateUser()
 
 
 async def validation_answer(poll_answer: PollAnswer, state: FSMContext):
-    profile = DbProfile.get_profile(poll_answer.user.id)
-    profile_answers = DbProfileAnswers.get_profile_answers(
-        poll_answer.poll_id, profile.id
+    # Получаем текущий profile_answers
+    service_profile_answers = ServiceProfileAnswers(
+        poll_answer.user.id, poll_answer.poll_id
     )
+    await service_profile_answers.get_profile_answers()
+    profile_answers = service_profile_answers.profile_answers
 
+    # Получаем данные вопроса
     question = DbQuestions.get_question_through_id(profile_answers.question_id)
-    question_data = Task.get_question_data(Task(), question, poll_answer.user.id)
+    task = Task()
+    question_data = task.get_question_data(question, poll_answer.user.id)
 
+    # Получаем ответ пользователя и правильный ответ
     correct_answer_list = question_data.is_correct_list
     user_answer_list = poll_answer.option_ids
 
+    # Получаем и сохраняем ответ пользователя
     user_answer = question_data.answers_list[int(poll_answer.option_ids[0])]
-
     profile_answers.answer_id = user_answer.id
     session.commit()
 
+    # Проверяем правильность ответа
     if correct_answer_list == user_answer_list:
         await user_state.set_state_answer_const(poll_answer.user.id, True)
         await correct_answer(poll_answer)
@@ -48,7 +54,7 @@ async def validation_answer(poll_answer: PollAnswer, state: FSMContext):
         else:
             await incorrect_answer(poll_answer)
 
-    #  Stop coroutine no_answers
+    #  Остановка корутины no_answers
     tasks = asyncio.all_tasks()
     for task in tasks:
         if task.get_coro().__str__().find("no_answers") != -1:
