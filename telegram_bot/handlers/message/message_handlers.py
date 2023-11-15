@@ -6,7 +6,7 @@ from aiogram.fsm.context import FSMContext
 from aiogram.types import Message
 
 from services.task.send_task import SendTask
-from telegram_bot.keyboard.get_button_list import get_button_list
+from telegram_bot.keyboard.get_button_list import ButtonList
 from telegram_bot.keyboard.markup_menu_list import MAIN_MENU_TECH_LIST
 from telegram_bot.utils.send_message import EntityMessage
 from view.telegram_commands.reset import reset
@@ -78,5 +78,5 @@ async def cancel_handler(message: Message, state: FSMContext) -> NoReturn:
     if current_state is None:
         return
     await state.clear()
-    main_menu = get_button_list(MAIN_MENU_TECH_LIST)
+    main_menu = ButtonList(message.from_user.id).get_button_list(MAIN_MENU_TECH_LIST)
     await reset(message.from_user.id, main_menu)

@@ -2,7 +2,7 @@ from aiogram.types import Message
 
 from services.profile.check_new_user import check_new_user
 from services.profile.create_new_user import CreateUser
-from telegram_bot.keyboard.get_button_list import get_button_list
+from telegram_bot.keyboard.get_button_list import ButtonList
 from telegram_bot.keyboard.markup_menu_list import MAIN_MENU_TECH_LIST
 from view.telegram_commands.registration import registration_complete
 
@@ -20,7 +20,9 @@ async def start(message: Message):
         )
 
         # Получение кнопок основного меню
-        main_menu = get_button_list(MAIN_MENU_TECH_LIST)
+        main_menu = ButtonList(message.from_user.id).get_button_list(
+            MAIN_MENU_TECH_LIST
+        )
         # Отправка сообщения
         await registration_complete(message.from_user.id, main_menu)
     else:
