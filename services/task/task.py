@@ -1,7 +1,6 @@
 import random
 from dataclasses import dataclass
 
-from database.entity_language.crud.language import DbLanguage
 from database.entity_task.crud.answer_text import DbAnswerText
 from database.entity_task.crud.answers import DbAnswers
 from database.entity_task.crud.question import DbQuestions
@@ -9,6 +8,7 @@ from database.entity_task.crud.question_text import DbQuestionsText
 from database.entity_task.model.answers import Answers
 from database.entity_task.model.questions import Questions
 from database.filter.crud.users_filter_questions import DbUsersFilterQuestions
+from database.profile.crud.profile import DbProfile
 
 
 @dataclass
@@ -57,7 +57,7 @@ class Task:
         return DbAnswerText.get_answer_text(answer)
 
     def get_question_data(self, _question: Questions, telegram_id: int) -> QuestionData:
-        _language_interface = DbLanguage.get_user_language_interface(telegram_id)
+        _language_interface = DbProfile.get_profile_language_interface(telegram_id)
         _question_text_list = self._get_question_text_list(_question)
         question_text = None
         for _question_text in _question_text_list:
