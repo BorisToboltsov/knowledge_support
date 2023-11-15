@@ -5,11 +5,17 @@ from database.filter.model.template_filter_questions import TemplateFilterQuesti
 session = get_session(engine)
 
 
+# TODO: Переработать функцию
+# 1. Изменить templates_filter_questions_list -> fixtures_...
+# 2. Сделать класс
+# 3. Разбить на несколько методов
+# 4. Сделать декоратор который добавляет вывод print
 def save_filter_questions():
     print("Start save template filter")
 
+    # Получаем объект языка
     python_language_name = DbLanguage.get_language("Python")
-
+    # Фикстуры
     templates_filter_questions_list = [
         {
             "filter_name": "random",
@@ -22,6 +28,7 @@ def save_filter_questions():
         }
     ]
 
+    # Записываем в базу
     for template_filter_questions in templates_filter_questions_list:
         # Создаем новую запись.
         data = TemplateFilterQuestions(

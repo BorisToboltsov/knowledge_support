@@ -1,6 +1,7 @@
 from telegram_bot.utils.send_message import EntityMessage
 
 
+# TODO: Сделать класс, т.к. потом будет отделение контекста от отправки
 async def correct_answer(message):
     context = "Верно!"
     await EntityMessage.send_message_from_user(message.user.id, context)

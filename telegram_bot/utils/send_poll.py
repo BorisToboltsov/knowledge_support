@@ -3,6 +3,7 @@ from typing import NoReturn
 from telegram_bot.connect import bot
 
 
+# TODO: Сделать аналогично с имзененным EntityMessage
 class EntityPoll:
     @staticmethod
     async def send_poll(

@@ -70,7 +70,7 @@ async def get_main_menu(message: Message) -> NoReturn:
 
 @router_message.message(Command("reset"))
 @router_message.message(F.text.casefold() == "reset")
-async def cancel_handler(message: Message, state: FSMContext) -> None:
+async def cancel_handler(message: Message, state: FSMContext) -> NoReturn:
     """
     Allow user to cancel any action
     """

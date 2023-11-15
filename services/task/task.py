@@ -21,6 +21,8 @@ class QuestionData:
     path_image: str
 
 
+# TODO: Доделать Type hint
+# 1. Попытаться разбить get_user_task и get_question_data
 class Task:
     def __init__(self):
         self.question_text: str = ""

@@ -5,6 +5,7 @@ from database.filter.model.template_filter_questions import TemplateFilterQuesti
 from database.filter.model.users_filter_questions import UsersFilterQuestions
 
 
+# TODO: Объединить в класс 2 функции
 async def _create_user_filter_questions(
     telegram_id: int,
     question_lvl_min: int,

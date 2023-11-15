@@ -17,6 +17,7 @@ from view.task.answers import (
 user_state = StateUser()
 
 
+# TODO: Убрать дублирование,
 class FormingResponse:
     def __init__(self, poll_answer: PollAnswer, state: FSMContext):
         self.poll_answer = poll_answer
@@ -58,13 +59,16 @@ class FormingResponse:
     async def validation_answer(self):
         # Проверяем правильность ответа
         if self.correct_answer_list == self.user_answer_list:
+            # Сформировать работу с состоянием отдельно
             await user_state.set_state_answer_const(self.poll_answer.user.id, True)
             await correct_answer(self.poll_answer)
             await self.state.clear()
         else:
+            # Убрать дублирование
             await user_state.set_state_answer_const(self.poll_answer.user.id, True)
             await self.state.clear()
             if self.question.multi_answer is True:
+                # + 1 это порядковый номер ответа, т.к. список начинается с 0
                 await incorrect_multiple_answers(
                     self.poll_answer,
                     list(map(lambda x: x + 1, self.correct_answer_list)),

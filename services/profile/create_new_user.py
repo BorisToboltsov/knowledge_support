@@ -27,13 +27,19 @@ class CreateUser:
         )
         return profile
 
+    # TODO: Разбить на несколько методов
+    # 1. Изменить название класса на создание профиля или нет, подумать
     async def create_new_user(self, telegram_id: int, user_name: str):
         account = await self._create_account(telegram_id=telegram_id, driver="telegram")
+        # Получение шаблона фильтров
         template_filter_random = (
             DbTemplateFilterQuestions.get_template_filter_questions("random")
         )
-        interface_language = DbLanguage.get_language("Russian")
 
+        # Получение языка интерфейса
+        language = DbLanguage.get_language("Russian")
+
+        # Создание пользовательского фильтра
         data = UsersFilterQuestions.create(
             telegram_id=account.driver_login,
             question_lvl_min=template_filter_random.question_lvl_min,
@@ -43,10 +49,10 @@ class CreateUser:
             language_id=template_filter_random.language_id,
             entity_language_id=template_filter_random.entity_language_id,
         )
-
+        # Создание профиля
         await self._create_profile(
             username=user_name,
-            interface_language=interface_language,
+            interface_language=language,
             account=account,
             users_filter_questions=data,
         )

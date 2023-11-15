@@ -5,6 +5,7 @@ from aiogram.types import Message
 from telegram_bot.connect import bot
 
 
+# TODO: Исправить имя класса, на более подходящее. EntityMessage отправляет не только сообщение но и фото
 class EntityMessage:
     @staticmethod
     async def send_message(
