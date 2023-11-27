@@ -10,6 +10,8 @@ class ButtonList:
         button_list = []
         for button_tech in button_tech_list:
             # TODO: Исключение если не найден технический указатель или язык
-            button = markup_menu_translate_dict[button_tech][self.profile_language]
+            button = markup_menu_translate_dict[button_tech][
+                self.profile_language.entity_name
+            ]
             button_list.append(button)
         return button_list
