@@ -9,6 +9,7 @@ from services.init_database.utils.print_message_decorator import print_message
 class InitDbEntityLanguage(SaveInitDbMixin):
     def __init__(self):
         self.python_language_name = DbLanguage.get_language("Python")
+        self.session = get_session(engine)
         self.static_entity_language_list = [
             "Django",
             "Flask",
@@ -17,7 +18,6 @@ class InitDbEntityLanguage(SaveInitDbMixin):
             "Asyncio",
             "PyQT",
         ]
-        self.session = get_session(engine)
 
     @print_message("Start add entity_language", "Complete add entity_language\n")
     def write_entity_language(self):

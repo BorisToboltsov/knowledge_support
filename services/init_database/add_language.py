@@ -1,38 +1,35 @@
 from database.connect_db import engine, get_session
 from database.entity_language.model.language import Language
+from services.init_database.utils.add_list_db import SaveInitDbMixin
+from services.init_database.utils.print_message_decorator import print_message
 
-session = get_session(engine)
 
+class InitDbSaveLanguage(SaveInitDbMixin):
+    def __init__(self):
+        self.session = get_session(engine)
+        self.languages_list = [
+            "Python",
+            "JavaScript",
+            "Java",
+            "English",
+            "Russian",
+            "Logical",
+            "Other",
+        ]
 
-# TODO: Переработать функцию
-# 1. Изменить languages_list -> fixtures_...
-# 2. Сделать класс
-# 3. Разбить на несколько методов
-# 4. Сделать декоратор который добавляет вывод print
-def save_language():
-    print("Start add language")
-    # фикстуры
-    languages_list = [
-        "Python",
-        "JavaScript",
-        "Java",
-        "English",
-        "Russian",
-        "Logical",
-        "Other",
-    ]
+    @print_message("Start add language", "Complete add language\n")
+    def write_language(self):
+        language_list = self._forming_language_list()
 
-    # Записываем данные
-    for language in languages_list:
-        # Создаем новую запись.
-        data = Language(
-            entity_name=language,
-        )
+        add_list_db = SaveInitDbMixin()
+        add_list_db.save_list_db(language_list, self.session)
 
-        # Добавляем запись
-        session.add(data)
-
-        # Благодаря этой строчке мы добавляем данные а таблицу
-        session.commit()
-
-    print("Complete add language\n")
+    def _forming_language_list(self):
+        language_list = []
+        for language in self.languages_list:
+            # Создаем новую запись.
+            data = Language(
+                entity_name=language,
+            )
+            language_list.append(data)
+        return language_list
