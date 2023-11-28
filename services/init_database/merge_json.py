@@ -1,33 +1,33 @@
 import json
 
-# TODO: Переработать в класс
-# 1. Сделать класс
-# 2. Переработать в несколько методов
-# 3.
-# 4. print в декоратор
+from services.init_database.utils.print_message_decorator import print_message
 
-print("Start merge json")
 
-# Чтение json получение 2х переменных
-with open("static/init_database/fixtures/question.json", "r") as raw_questions:
-    questions = json.load(raw_questions)
+class InitDbMergeJson:
+    def __init__(self):
+        self.questions_answers = []
+        self.path_question = "static/init_database/fixtures/question.json"
+        self.path_answer = "static/init_database/fixtures/answer.json"
+        self.questions = {}
+        self.answers = {}
 
-with open("static/init_database/fixtures/answer.json", "r") as raw_answers:
-    answers = json.load(raw_answers)
+    @print_message("Start merge json", "Complete merge json\n")
+    def merge_json(self):
+        self._read_json()
+        self._forming_questions_answer()
 
-# Атрибут объекта
-questions_answers = []
+    def _read_json(self):
+        with open(self.path_question, "r") as raw_questions:
+            self.questions = json.load(raw_questions)
+        with open(self.path_answer, "r") as raw_answers:
+            self.answers = json.load(raw_answers)
 
-# Формирование обзего словаря questions_answers
-# Посмотреть как будет выглядеть в генераторе списка все вместе
-for question in questions["questions"]:
-    answers_list = []
-
-    # Переделать в генератор списка
-    for answer in answers["answers"]:
-        if question["id"] == answer["questions_id"]:
-            answers_list.append(answer)
-
-    questions_answers.append({"question": question, "answers": answers_list})
-
-print("Complete merge json\n")
+    def _forming_questions_answer(self):
+        for question in self.questions["questions"]:
+            answers_list = []
+            for answer in self.answers["answers"]:
+                if question["id"] == answer["questions_id"]:
+                    answers_list.append(answer)
+            self.questions_answers.append(
+                {"question": question, "answers": answers_list}
+            )

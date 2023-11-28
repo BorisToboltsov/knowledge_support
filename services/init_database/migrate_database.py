@@ -4,7 +4,7 @@ from database.entity_task.model.answer_text import AnswerText
 from database.entity_task.model.answers import Answers
 from database.entity_task.model.question_text import QuestionText
 from database.entity_task.model.questions import Questions
-from services.init_database.merge_json import questions_answers
+from services.init_database.merge_json import InitDbMergeJson
 
 session = get_session(engine)
 
@@ -17,7 +17,10 @@ session = get_session(engine)
 def save_question_answers():
     print("Start migrate database")
 
-    for question_answer in questions_answers:
+    questions_answers_obj = InitDbMergeJson()
+    questions_answers_obj.merge_json()
+
+    for question_answer in questions_answers_obj.questions_answers:
         # Получение данных объектов для конкретного вопроса
         programming_language_name = DbLanguage.get_language(
             question_answer["question"]["programming_language"]
