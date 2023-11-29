@@ -1,7 +1,8 @@
 from aiogram.types import Message
 from sqlalchemy.exc import NoResultFound
 
-from database.profile.crud.account import DbAccount
+from database.profile.crud.profile import DbProfile
+from services.profile.create_new_user import CreateUser
 from telegram_bot.keyboard.get_button_list import ButtonList
 from telegram_bot.keyboard.markup_menu_list import MAIN_MENU_TECH_LIST
 from view.telegram_commands.registration import registration_complete
@@ -12,7 +13,10 @@ from view.telegram_commands.registration import registration_complete
 class Start:
     async def start(self, message: Message):
         try:
-            DbAccount.get_account(message.from_user.id)
+            DbProfile.get_profile(message.from_user.id)
+            await CreateUser().create_new_user(
+                int(message.from_user.id), message.from_user.username
+            )
             await self._send_message(message)
         except NoResultFound:
             pass

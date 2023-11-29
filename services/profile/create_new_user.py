@@ -1,5 +1,4 @@
 from database.entity_language.crud.language import DbLanguage
-from database.entity_language.model.language import Language
 from database.filter.crud.template_filter_questions import DbTemplateFilterQuestions
 from database.filter.model.users_filter_questions import UsersFilterQuestions
 from database.profile.model.account import Account
@@ -7,52 +6,26 @@ from database.profile.model.profile import Profile
 
 
 class CreateUser:
-    @staticmethod
-    async def _create_account(telegram_id: int, driver: str) -> Account:
-        account = Account.create(driver=driver, driver_login=telegram_id)
-        return account
-
-    @staticmethod
-    async def _create_profile(
-        username: str,
-        interface_language: Language,
-        account: Account,
-        users_filter_questions: UsersFilterQuestions,
-    ) -> Profile:
-        profile = Profile.create(
-            username=username,
-            interface_language_id=interface_language.id,
-            account_id=account.id,
-            users_filter_questions_id=users_filter_questions.id,
-        )
-        return profile
-
-    # TODO: Разбить на несколько методов
-    # 1. Изменить название класса на создание профиля или нет, подумать
-    async def create_new_user(self, telegram_id: int, user_name: str):
-        account = await self._create_account(telegram_id=telegram_id, driver="telegram")
-        # Получение шаблона фильтров
-        template_filter_random = (
+    def __init__(self):
+        self.template_filter_random = (
             DbTemplateFilterQuestions.get_template_filter_questions("random")
         )
+        self.language = DbLanguage.get_language("Russian")
 
-        # Получение языка интерфейса
-        language = DbLanguage.get_language("Russian")
-
-        # Создание пользовательского фильтра
-        data = UsersFilterQuestions.create(
+    async def create_new_user(self, telegram_id: int, user_name: str):
+        account = await Account.create(driver="telegram", driver_login=telegram_id)
+        user_filter = UsersFilterQuestions.create(
             telegram_id=account.driver_login,
-            question_lvl_min=template_filter_random.question_lvl_min,
-            question_lvl_max=template_filter_random.question_lvl_max,
-            algorithm_name=template_filter_random.algorithm_name,
-            tasks_count=template_filter_random.tasks_count,
-            language_id=template_filter_random.language_id,
-            entity_language_id=template_filter_random.entity_language_id,
+            question_lvl_min=self.template_filter_random.question_lvl_min,
+            question_lvl_max=self.template_filter_random.question_lvl_max,
+            algorithm_name=self.template_filter_random.algorithm_name,
+            tasks_count=self.template_filter_random.tasks_count,
+            language_id=self.template_filter_random.language_id,
+            entity_language_id=self.template_filter_random.entity_language_id,
         )
-        # Создание профиля
-        await self._create_profile(
+        Profile.create(
             username=user_name,
-            interface_language=language,
-            account=account,
-            users_filter_questions=data,
+            interface_language_id=self.language.id,
+            account_id=account.id,
+            users_filter_questions_id=user_filter.id,
         )
