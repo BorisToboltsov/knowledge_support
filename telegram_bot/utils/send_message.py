@@ -13,10 +13,6 @@ class EntityMessage:
         await message.answer(message_text, reply_markup=keyboard)
 
     @staticmethod
-    async def send_photo(telegram_id, photo, caption=None) -> NoReturn:
-        await bot.send_photo(telegram_id, photo, caption=caption)
-
-    @staticmethod
     async def send_message_from_user(
         telegram_id: int, message_text: str, keyboard=None
     ) -> NoReturn:

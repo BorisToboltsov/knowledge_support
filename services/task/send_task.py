@@ -8,7 +8,7 @@ from services.profile.profile_answers import ServiceProfileAnswers
 from services.task.forming_response import user_state
 from services.task.task import Task
 from telegram_bot.states.states import FSMTasks
-from telegram_bot.utils.send_message import EntityMessage
+from telegram_bot.utils.send_photo import EntityPhoto
 from telegram_bot.utils.send_poll import EntityPoll
 from view.task.answers import not_answer
 from view.task.task import task_exist
@@ -23,7 +23,7 @@ class SendTaskTech:
     async def send_image_if_exists(self):
         if self.task.path_image:
             photo = FSInputFile(f"./static/{self.task.path_image}")
-            await EntityMessage.send_photo(self.telegram_id, photo)
+            await EntityPhoto.send_photo(self.telegram_id, photo)
 
     async def send_poll_tech(self):
         self.poll = await EntityPoll.send_poll(
