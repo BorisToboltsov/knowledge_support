@@ -1,7 +1,7 @@
 from aiogram.types import Message
+from sqlalchemy.exc import NoResultFound
 
-from services.profile.check_new_user import check_new_user
-from services.profile.create_new_user import CreateUser
+from database.profile.crud.account import DbAccount
 from telegram_bot.keyboard.get_button_list import ButtonList
 from telegram_bot.keyboard.markup_menu_list import MAIN_MENU_TECH_LIST
 from view.telegram_commands.registration import registration_complete
@@ -11,12 +11,10 @@ from view.telegram_commands.registration import registration_complete
 
 class Start:
     async def start(self, message: Message):
-        if await check_new_user(int(message.from_user.id)) is False:
-            await CreateUser().create_new_user(
-                int(message.from_user.id), message.from_user.username
-            )
+        try:
+            DbAccount.get_account(message.from_user.id)
             await self._send_message(message)
-        else:
+        except NoResultFound:
             pass
 
     @staticmethod
