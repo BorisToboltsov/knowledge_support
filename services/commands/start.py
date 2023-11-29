@@ -6,27 +6,22 @@ from telegram_bot.keyboard.get_button_list import ButtonList
 from telegram_bot.keyboard.markup_menu_list import MAIN_MENU_TECH_LIST
 from view.telegram_commands.registration import registration_complete
 
-# TODO: Разбить на 2 функции
-# 1. Проверка пользователя и создание
-# 2. Получение меню и отправка сообщения
-# 3. Изменить название файла и модуля commands_method -> придумать
+# TODO: Отправка сообщений переработать
 
 
 class Start:
     async def start(self, message: Message):
-        # Проверка пользователя
         if await check_new_user(int(message.from_user.id)) is False:
-            # Создание пользователя
             await CreateUser().create_new_user(
                 int(message.from_user.id), message.from_user.username
             )
-
-            # Получение кнопок основного меню
-            main_menu = ButtonList(message.from_user.id).get_button_list(
-                MAIN_MENU_TECH_LIST
-            )
-            # Отправка сообщения
-            await registration_complete(message.from_user.id, main_menu)
-
+            await self._send_message(message)
         else:
             pass
+
+    @staticmethod
+    async def _send_message(message):
+        main_menu = ButtonList(message.from_user.id).get_button_list(
+            MAIN_MENU_TECH_LIST
+        )
+        await registration_complete(message.from_user.id, main_menu)
