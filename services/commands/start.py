@@ -14,12 +14,11 @@ class Start:
     async def start(self, message: Message):
         try:
             DbProfile.get_profile(message.from_user.id)
+        except NoResultFound:
             await CreateUser().create_new_user(
                 int(message.from_user.id), message.from_user.username
             )
             await self._send_message(message)
-        except NoResultFound:
-            pass
 
     @staticmethod
     async def _send_message(message):

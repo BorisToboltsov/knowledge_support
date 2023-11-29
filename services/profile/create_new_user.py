@@ -13,7 +13,7 @@ class CreateUser:
         self.language = DbLanguage.get_language("Russian")
 
     async def create_new_user(self, telegram_id: int, user_name: str):
-        account = await Account.create(driver="telegram", driver_login=telegram_id)
+        account = Account.create(driver="telegram", driver_login=telegram_id)
         user_filter = UsersFilterQuestions.create(
             telegram_id=account.driver_login,
             question_lvl_min=self.template_filter_random.question_lvl_min,
