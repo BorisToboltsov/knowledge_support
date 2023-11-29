@@ -1,21 +1,33 @@
 import json
 
-print("Start merge json")
-
-with open("static/init_database/fixtures/question.json", "r") as raw_questions:
-    questions = json.load(raw_questions)
+from services.init_database.utils.print_message_decorator import print_message
 
 
-with open("static/init_database/fixtures/answer.json", "r") as raw_answers:
-    answers = json.load(raw_answers)
+class InitDbMergeJson:
+    def __init__(self):
+        self.questions_answers = []
+        self.path_question = "static/init_database/fixtures/question.json"
+        self.path_answer = "static/init_database/fixtures/answer.json"
+        self.questions = {}
+        self.answers = {}
 
-questions_answers = []
+    @print_message("Start merge json", "Complete merge json\n")
+    def merge_json(self):
+        self._read_json()
+        self._forming_questions_answer()
 
-for question in questions["questions"]:
-    answers_list = []
-    for answer in answers["answers"]:
-        if question["id"] == answer["questions_id"]:
-            answers_list.append(answer)
-    questions_answers.append({"question": question, "answers": answers_list})
+    def _read_json(self):
+        with open(self.path_question, "r") as raw_questions:
+            self.questions = json.load(raw_questions)
+        with open(self.path_answer, "r") as raw_answers:
+            self.answers = json.load(raw_answers)
 
-print("Complete merge json\n")
+    def _forming_questions_answer(self):
+        for question in self.questions["questions"]:
+            answers_list = []
+            for answer in self.answers["answers"]:
+                if question["id"] == answer["questions_id"]:
+                    answers_list.append(answer)
+            self.questions_answers.append(
+                {"question": question, "answers": answers_list}
+            )
